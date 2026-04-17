@@ -32,12 +32,8 @@ body {
 }
 
 @keyframes float {
-    from {
-        transform: translateY(100vh) rotate(0deg);
-    }
-    to {
-        transform: translateY(-10vh) rotate(360deg);
-    }
+    from { transform: translateY(100vh) rotate(0deg); }
+    to { transform: translateY(-10vh) rotate(360deg); }
 }
 
 /* ===== HEADER ===== */
@@ -85,11 +81,9 @@ body {
     border-radius: 20px;
     text-align: center;
     cursor: pointer;
-
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.2);
-
     transition: 0.3s;
 }
 
@@ -103,12 +97,13 @@ body {
     display: block;
     padding: 15px;
     margin: 10px auto;
-    width: 250px;
+    width: 260px;
     border-radius: 15px;
     background: rgba(255,255,255,0.1);
     color: cyan;
     text-decoration: none;
     transition: 0.3s;
+    font-size: 16px;
 }
 
 .link:hover {
@@ -133,7 +128,6 @@ body {
 
 <body>
 
-<!-- nền học tập -->
 <div class="study-bg" id="bg"></div>
 
 <div class="header">
@@ -150,33 +144,38 @@ body {
 
 <script>
 
-/* ===== DATA (SỬA LINK Ở ĐÂY) ===== */
+/* ===== DATA (SỬA LINK + TÊN Ở ĐÂY) ===== */
 const data = {
     "11A1": {
         "Nhóm 1": [
-    {name: "LINK VIDEO", link: "https://www.youtube.com/"},
-]
-        "Nhóm 2": ["#","#","#"],
-        "Nhóm 3": ["#","#","#"],
-        "Nhóm 4": ["#","#","#"]
+            {name: "LINK VIDEO", link: "https://www.youtube.com/"}
+        ],
+        "Nhóm 2": [
+            {name: "Tài liệu Văn", link: "#"}
+        ],
+        "Nhóm 3": [],
+        "Nhóm 4": []
     },
+
     "11A2": {
-        "Nhóm 1": ["#","#","#"],
-        "Nhóm 2": ["#","#","#"],
-        "Nhóm 3": ["#","#","#"],
-        "Nhóm 4": ["#","#","#"]
+        "Nhóm 1": [],
+        "Nhóm 2": [],
+        "Nhóm 3": [],
+        "Nhóm 4": []
     },
+
     "11A3": {
-        "Nhóm 1": ["#","#","#"],
-        "Nhóm 2": ["#","#","#"],
-        "Nhóm 3": ["#","#","#"],
-        "Nhóm 4": ["#","#","#"]
+        "Nhóm 1": [],
+        "Nhóm 2": [],
+        "Nhóm 3": [],
+        "Nhóm 4": []
     },
+
     "11A6": {
-        "Nhóm 1": ["#","#","#"],
-        "Nhóm 2": ["#","#","#"],
-        "Nhóm 3": ["#","#","#"],
-        "Nhóm 4": ["#","#","#"]
+        "Nhóm 1": [],
+        "Nhóm 2": [],
+        "Nhóm 3": [],
+        "Nhóm 4": []
     }
 };
 
@@ -220,8 +219,8 @@ function showLinks(g){
     main.innerHTML="";
 
     data[currentClass][g].forEach((item)=>{
-    main.innerHTML += `<a href="${item.link}" target="_blank" class="link">📄 ${item.name}</a>`;
-});
+        main.innerHTML += `<a href="${item.link}" target="_blank" class="link">📄 ${item.name}</a>`;
+    });
 
     level=2;
 }
