@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Tài liệu lớp 11</title>
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<!-- PARTICLES -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #020617;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* particles */
+#particles-js {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* header */
+.header {
+    text-align: center;
+    padding: 50px 20px 10px;
+}
+
+.header h1 {
+    font-size: 42px;
+    background: linear-gradient(90deg, cyan, pink);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.header p {
+    opacity: 0.7;
+}
+
+/* search */
+.search {
+    display: flex;
+    justify-content: center;
+}
+
+.search input {
+    padding: 12px 20px;
+    width: 280px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+}
+
+/* grid */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+/* card */
+.card {
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px cyan;
+}
+
+/* link */
+.link {
+    display: block;
+    padding: 15px;
+    margin: 10px auto;
+    width: 250px;
+    border-radius: 15px;
+    background: rgba(255,255,255,0.1);
+    color: cyan;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.link:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px cyan;
+}
+
+/* back */
+.back {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    background: cyan;
+    color: black;
+    cursor: pointer;
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="particles-js"></div>
+
+<div class="header">
+    <h1>📚 TÀI LIỆU LỚP 11</h1>
+    <p>Chọn lớp → nhóm → tài liệu</p>
+</div>
+
+<div class="search">
+    <input type="text" placeholder="🔍 Tìm kiếm..." onkeyup="search(this.value)">
+</div>
+
+<div id="main" class="container"></div>
+<div class="back" id="backBtn" onclick="back()">⬅</div>
+
+<script>
+
+/* DATA */
+const data = {
+    "11A1": {
+        "Nhóm 1": ["#","#","#"],
+        "Nhóm 2": ["#","#","#"],
+        "Nhóm 3": ["#","#","#"],
+        "Nhóm 4": ["#","#","#"]
+    },
+    "11A2": {
+        "Nhóm 1": ["#","#","#"],
+        "Nhóm 2": ["#","#","#"],
+        "Nhóm 3": ["#","#","#"],
+        "Nhóm 4": ["#","#","#"]
+    },
+    "11A3": {
+        "Nhóm 1": ["#","#","#"],
+        "Nhóm 2": ["#","#","#"],
+        "Nhóm 3": ["#","#","#"],
+        "Nhóm 4": ["#","#","#"]
+    },
+    "11A6": {
+        "Nhóm 1": ["#","#","#"],
+        "Nhóm 2": ["#","#","#"],
+        "Nhóm 3": ["#","#","#"],
+        "Nhóm 4": ["#","#","#"]
+    }
+};
+
+let level = 0;
+let currentClass = "";
+const main = document.getElementById("main");
+
+/* lớp */
+function showClasses(){
+    main.innerHTML="";
+    document.getElementById("backBtn").style.display="none";
+
+    Object.keys(data).forEach(c=>{
+        main.innerHTML += `<div class="card">${c}</div>`;
+    });
+
+    document.querySelectorAll(".card").forEach((el,i)=>{
+        el.onclick=()=>showGroups(Object.keys(data)[i]);
+    });
+
+    level=0;
+}
+
+/* nhóm */
+function showGroups(c){
+    currentClass=c;
+    main.innerHTML="";
+    document.getElementById("backBtn").style.display="block";
+
+    Object.keys(data[c]).forEach(g=>{
+        main.innerHTML += `<div class="card">${g}</div>`;
+    });
+
+    document.querySelectorAll(".card").forEach((el,i)=>{
+        el.onclick=()=>showLinks(Object.keys(data[c])[i]);
+    });
+
+    level=1;
+}
+
+/* link */
+function showLinks(g){
+    main.innerHTML="";
+
+    data[currentClass][g].forEach((link,i)=>{
+        main.innerHTML += `<a href="${link}" target="_blank" class="link">📄 Tài liệu ${i+1}</a>`;
+    });
+
+    level=2;
+}
+
+/* back */
+function back(){
+    if(level==2) showGroups(currentClass);
+    else showClasses();
+}
+
+/* search */
+function search(text){
+    let items = document.querySelectorAll(".card, .link");
+    items.forEach(i=>{
+        if(i.innerText.toLowerCase().includes(text.toLowerCase())){
+            i.style.display="block";
+        } else {
+            i.style.display="none";
+        }
+    });
+}
+
+/* particles */
+particlesJS("particles-js", {
+    particles: {
+        number: { value: 60 },
+        size: { value: 3 },
+        move: { speed: 2 },
+        line_linked: { enable: true }
+    }
+});
+
+/* load */
+showClasses();
+
+</script>
+
+</body>
+</html>
