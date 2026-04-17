@@ -3,20 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <title>Tài liệu lớp 11</title>
+
 <style>
-body {font-family: Arial; background:#0f2027; color:white; text-align:center;}
-.btn {display:block; margin:10px auto; width:200px; padding:12px; background:cyan; color:black; text-decoration:none; border-radius:20px;}
+body {
+    margin: 0;
+    font-family: 'Segoe UI';
+    background: linear-gradient(135deg, #1d2b64, #f8cdda);
+    color: white;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 40px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
+}
+
+.card {
+    width: 200px;
+    margin: 15px;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.05);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
 </style>
+
 </head>
 
 <body>
 
-<h1>📚 Chọn lớp</h1>
+<h1>📚 TÀI LIỆU LỚP 11</h1>
 
-<a href="11A1.html" class="btn">11A1</a>
-<a href="11A2.html" class="btn">11A2</a>
-<a href="11A3.html" class="btn">11A3</a>
-<a href="11A6.html" class="btn">11A6</a>
+<div class="container">
+    <a href="11A1.html"><div class="card">11A1</div></a>
+    <a href="11A2.html"><div class="card">11A2</div></a>
+    <a href="11A3.html"><div class="card">11A3</div></a>
+    <a href="11A6.html"><div class="card">11A6</div></a>
+</div>
 
 </body>
 </html>
