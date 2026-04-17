@@ -153,7 +153,9 @@ body {
 /* ===== DATA (SỬA LINK Ở ĐÂY) ===== */
 const data = {
     "11A1": {
-        "Nhóm 1": ["https://www.youtube.com/"],
+        "Nhóm 1": [
+    {name: "LINK VIDEO", link: "https://www.youtube.com/"},
+]
         "Nhóm 2": ["#","#","#"],
         "Nhóm 3": ["#","#","#"],
         "Nhóm 4": ["#","#","#"]
@@ -217,9 +219,9 @@ function showGroups(c){
 function showLinks(g){
     main.innerHTML="";
 
-    data[currentClass][g].forEach((link,i)=>{
-        main.innerHTML += `<a href="${link}" target="_blank" class="link">📄 Tài liệu ${i+1}</a>`;
-    });
+    data[currentClass][g].forEach((item)=>{
+    main.innerHTML += `<a href="${item.link}" target="_blank" class="link">📄 ${item.name}</a>`;
+});
 
     level=2;
 }
