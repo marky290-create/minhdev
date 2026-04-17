@@ -4,11 +4,7 @@
 <meta charset="UTF-8">
 <title>Tài liệu lớp 11</title>
 
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-<!-- PARTICLES -->
-<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 
 <style>
 body {
@@ -19,15 +15,32 @@ body {
     overflow-x: hidden;
 }
 
-/* particles */
-#particles-js {
+/* ===== NỀN HỌC TẬP ===== */
+.study-bg {
     position: fixed;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     z-index: -1;
 }
 
-/* header */
+.icon {
+    position: absolute;
+    font-size: 26px;
+    opacity: 0.15;
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    from {
+        transform: translateY(100vh) rotate(0deg);
+    }
+    to {
+        transform: translateY(-10vh) rotate(360deg);
+    }
+}
+
+/* ===== HEADER ===== */
 .header {
     text-align: center;
     padding: 50px 20px 10px;
@@ -44,7 +57,7 @@ body {
     opacity: 0.7;
 }
 
-/* search */
+/* ===== SEARCH ===== */
 .search {
     display: flex;
     justify-content: center;
@@ -58,7 +71,7 @@ body {
     outline: none;
 }
 
-/* grid */
+/* ===== GRID ===== */
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
@@ -66,7 +79,7 @@ body {
     padding: 30px;
 }
 
-/* card */
+/* ===== CARD ===== */
 .card {
     padding: 30px;
     border-radius: 20px;
@@ -75,7 +88,6 @@ body {
 
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(10px);
-
     border: 1px solid rgba(255,255,255,0.2);
 
     transition: 0.3s;
@@ -86,7 +98,7 @@ body {
     box-shadow: 0 0 20px cyan;
 }
 
-/* link */
+/* ===== LINK ===== */
 .link {
     display: block;
     padding: 15px;
@@ -104,7 +116,7 @@ body {
     box-shadow: 0 0 10px cyan;
 }
 
-/* back */
+/* ===== BACK ===== */
 .back {
     position: fixed;
     bottom: 20px;
@@ -121,7 +133,8 @@ body {
 
 <body>
 
-<div id="particles-js"></div>
+<!-- nền học tập -->
+<div class="study-bg" id="bg"></div>
 
 <div class="header">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
@@ -137,7 +150,7 @@ body {
 
 <script>
 
-/* DATA */
+/* ===== DATA (SỬA LINK Ở ĐÂY) ===== */
 const data = {
     "11A1": {
         "Nhóm 1": ["#","#","#"],
@@ -169,7 +182,7 @@ let level = 0;
 let currentClass = "";
 const main = document.getElementById("main");
 
-/* lớp */
+/* ===== HIỂN THỊ ===== */
 function showClasses(){
     main.innerHTML="";
     document.getElementById("backBtn").style.display="none";
@@ -185,7 +198,6 @@ function showClasses(){
     level=0;
 }
 
-/* nhóm */
 function showGroups(c){
     currentClass=c;
     main.innerHTML="";
@@ -202,7 +214,6 @@ function showGroups(c){
     level=1;
 }
 
-/* link */
 function showLinks(g){
     main.innerHTML="";
 
@@ -213,13 +224,13 @@ function showLinks(g){
     level=2;
 }
 
-/* back */
+/* ===== BACK ===== */
 function back(){
     if(level==2) showGroups(currentClass);
     else showClasses();
 }
 
-/* search */
+/* ===== SEARCH ===== */
 function search(text){
     let items = document.querySelectorAll(".card, .link");
     items.forEach(i=>{
@@ -231,17 +242,25 @@ function search(text){
     });
 }
 
-/* particles */
-particlesJS("particles-js", {
-    particles: {
-        number: { value: 60 },
-        size: { value: 3 },
-        move: { speed: 2 },
-        line_linked: { enable: true }
-    }
-});
+/* ===== NỀN ICON HỌC TẬP ===== */
+const icons = ["📚","✏️","📖","📝","📐","🧠","🎓","📊"];
 
-/* load */
+function createIcon(){
+    const el = document.createElement("div");
+    el.className = "icon";
+    el.innerText = icons[Math.floor(Math.random()*icons.length)];
+
+    el.style.left = Math.random()*100 + "vw";
+    el.style.animationDuration = (6 + Math.random()*6) + "s";
+
+    document.getElementById("bg").appendChild(el);
+
+    setTimeout(()=>el.remove(),10000);
+}
+
+setInterval(createIcon, 400);
+
+/* LOAD */
 showClasses();
 
 </script>
