@@ -13,14 +13,60 @@ body {
     background: #020617;
     color: white;
     overflow-x: hidden;
+    transition: 0.3s;
 }
 
-/* ===== NỀN HỌC TẬP ===== */
+/* ===== THEME BUTTON ===== */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* ===== LIGHT MODE ===== */
+body.light {
+    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+    color: #0f172a;
+}
+
+body.light .header h1 {
+    background: linear-gradient(90deg, #2563eb, #9333ea);
+    -webkit-background-clip: text;
+}
+
+body.light .card {
+    background: white;
+    color: black;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+body.light .intro {
+    background: white;
+}
+
+body.light .stat {
+    background: #e2e8f0;
+}
+
+body.light .link {
+    background: #e2e8f0;
+    color: #2563eb;
+}
+
+body.light input {
+    background: white;
+}
+
+/* ===== NỀN ===== */
 .study-bg {
     position: fixed;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     z-index: -1;
 }
 
@@ -43,35 +89,78 @@ body {
 }
 
 .logo {
-    width: 120px;
-    margin-bottom: 15px;
+    width: 110px;
     border-radius: 50%;
-    box-shadow: 0 0 20px rgba(255,255,255,0.3);
+    margin-bottom: 10px;
 }
 
 .header h1 {
-    font-size: 42px;
+    font-size: 40px;
     background: linear-gradient(90deg, cyan, pink);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.header p {
+/* ===== INTRO ===== */
+.intro {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    text-align: center;
+}
+
+.intro h2 {
+    color: cyan;
+}
+
+.intro p {
+    opacity: 0.85;
+    line-height: 1.6;
+}
+
+.info-box {
+    margin-top: 15px;
+    display: grid;
+    gap: 8px;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.stat {
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+}
+
+.stat h3 {
+    margin: 0;
+    color: cyan;
+}
+
+.note {
+    margin-top: 15px;
+    font-style: italic;
     opacity: 0.7;
 }
 
 /* ===== SEARCH ===== */
 .search {
-    display: flex;
-    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
 }
 
 .search input {
-    padding: 12px 20px;
-    width: 280px;
-    border-radius: 30px;
+    padding: 10px;
+    width: 260px;
+    border-radius: 20px;
     border: none;
-    outline: none;
 }
 
 /* ===== GRID ===== */
@@ -84,38 +173,28 @@ body {
 
 /* ===== CARD ===== */
 .card {
-    padding: 30px;
+    padding: 25px;
     border-radius: 20px;
     text-align: center;
     cursor: pointer;
     background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
     transition: 0.3s;
 }
 
 .card:hover {
     transform: scale(1.1);
-    box-shadow: 0 0 20px cyan;
 }
 
 /* ===== LINK ===== */
 .link {
     display: block;
-    padding: 15px;
+    padding: 12px;
     margin: 10px auto;
-    width: 260px;
-    border-radius: 15px;
+    width: 250px;
+    border-radius: 10px;
     background: rgba(255,255,255,0.1);
-    color: cyan;
     text-decoration: none;
-    transition: 0.3s;
-    font-size: 16px;
-}
-
-.link:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px cyan;
+    color: cyan;
 }
 
 /* ===== BACK ===== */
@@ -123,10 +202,10 @@ body {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    padding: 12px 20px;
-    border-radius: 30px;
+    padding: 10px 15px;
     background: cyan;
     color: black;
+    border-radius: 20px;
     cursor: pointer;
     display: none;
 }
@@ -135,16 +214,47 @@ body {
 
 <body>
 
+<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+
 <div class="study-bg" id="bg"></div>
 
 <div class="header">
     <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
-    <p>Trường THPT Đại Ngãi – Thành phố Cần Thơ</p>
+</div>
+
+<div class="intro">
+    <h2>📖 Giới thiệu</h2>
+
+    <p>
+        Website được tạo ra nhằm lưu trữ và chia sẻ các tài liệu học tập môn 
+        <b>Giáo dục địa phương</b> dành cho học sinh khối 11.
+    </p>
+
+    <p>
+        Tài liệu được phân chia theo từng lớp và từng nhóm, giúp học sinh dễ dàng 
+        tìm kiếm.
+    </p>
+
+    <div class="info-box">
+        <div>🏫 <b>Trường:</b> THPT Đại Ngãi</div>
+        <div>📚 <b>Khối:</b> 11</div>
+        <div>📅 <b>Năm:</b> 2026</div>
+    </div>
+
+    <div class="stats">
+        <div class="stat"><h3>4</h3><p>Lớp</p></div>
+        <div class="stat"><h3>16</h3><p>Nhóm</p></div>
+        <div class="stat"><h3>100+</h3><p>Tài liệu</p></div>
+    </div>
+
+    <p class="note">
+        💡 Hỗ trợ học sinh hiệu quả trong quá trình học tập.
+    </p>
 </div>
 
 <div class="search">
-    <input type="text" placeholder="🔍 Tìm kiếm..." onkeyup="search(this.value)">
+    <input type="text" placeholder="🔍 Tìm..." onkeyup="search(this.value)">
 </div>
 
 <div id="main" class="container"></div>
@@ -152,118 +262,100 @@ body {
 
 <script>
 
-/* ===== DATA ===== */
+/* DATA */
 const data = {
     "11A1": {
         "Nhóm 1": [
-            {name: "Bài tập Toán chương 1", link: "https://drive.google.com/1"},
-            {name: "Đề kiểm tra 15 phút", link: "https://drive.google.com/2"}
+            {name:"Bài tập Toán", link:"#"},
+            {name:"Đề kiểm tra", link:"#"}
         ],
         "Nhóm 2": [],
         "Nhóm 3": [],
         "Nhóm 4": []
     },
-    "11A2": {
-        "Nhóm 1": [],
-        "Nhóm 2": [],
-        "Nhóm 3": [],
-        "Nhóm 4": []
-    },
-    "11A3": {
-        "Nhóm 1": [],
-        "Nhóm 2": [],
-        "Nhóm 3": [],
-        "Nhóm 4": []
-    },
-    "11A6": {
-        "Nhóm 1": [],
-        "Nhóm 2": [],
-        "Nhóm 3": [],
-        "Nhóm 4": []
-    }
+    "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
+    "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
+    "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
 };
 
-let level = 0;
-let currentClass = "";
-const main = document.getElementById("main");
+let currentClass="";
+const main=document.getElementById("main");
 
-/* ===== HIỂN THỊ ===== */
+/* HIỂN THỊ */
 function showClasses(){
     main.innerHTML="";
     document.getElementById("backBtn").style.display="none";
-
     Object.keys(data).forEach(c=>{
-        main.innerHTML += `<div class="card">${c}</div>`;
+        main.innerHTML+=`<div class="card">${c}</div>`;
     });
-
     document.querySelectorAll(".card").forEach((el,i)=>{
         el.onclick=()=>showGroups(Object.keys(data)[i]);
     });
-
-    level=0;
 }
 
 function showGroups(c){
     currentClass=c;
     main.innerHTML="";
     document.getElementById("backBtn").style.display="block";
-
     Object.keys(data[c]).forEach(g=>{
-        main.innerHTML += `<div class="card">${g}</div>`;
+        main.innerHTML+=`<div class="card">${g}</div>`;
     });
-
     document.querySelectorAll(".card").forEach((el,i)=>{
         el.onclick=()=>showLinks(Object.keys(data[c])[i]);
     });
-
-    level=1;
 }
 
 function showLinks(g){
     main.innerHTML="";
-
-    data[currentClass][g].forEach((item)=>{
-        main.innerHTML += `<a href="${item.link}" target="_blank" class="link">📄 ${item.name}</a>`;
+    data[currentClass][g].forEach(item=>{
+        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
     });
-
-    level=2;
 }
 
-/* ===== BACK ===== */
+/* BACK */
 function back(){
-    if(level==2) showGroups(currentClass);
+    if(main.querySelector(".link")) showGroups(currentClass);
     else showClasses();
 }
 
-/* ===== SEARCH ===== */
-function search(text){
-    let items = document.querySelectorAll(".card, .link");
-    items.forEach(i=>{
-        if(i.innerText.toLowerCase().includes(text.toLowerCase())){
-            i.style.display="block";
-        } else {
-            i.style.display="none";
-        }
+/* SEARCH */
+function search(t){
+    document.querySelectorAll(".card,.link").forEach(i=>{
+        i.style.display=i.innerText.toLowerCase().includes(t.toLowerCase())?"block":"none";
     });
 }
 
-/* ===== NỀN ICON HỌC TẬP ===== */
-const icons = ["📚","✏️","📖","📝","📐","🧠","🎓","📊"];
+/* THEME */
+function toggleTheme(){
+    document.body.classList.toggle("light");
+    const btn=document.querySelector(".theme-toggle");
 
-function createIcon(){
-    const el = document.createElement("div");
-    el.className = "icon";
-    el.innerText = icons[Math.floor(Math.random()*icons.length)];
-
-    el.style.left = Math.random()*100 + "vw";
-    el.style.animationDuration = (6 + Math.random()*6) + "s";
-
-    document.getElementById("bg").appendChild(el);
-
-    setTimeout(()=>el.remove(),10000);
+    if(document.body.classList.contains("light")){
+        btn.innerText="☀️ Light";
+        localStorage.setItem("theme","light");
+    } else {
+        btn.innerText="🌙 Dark";
+        localStorage.setItem("theme","dark");
+    }
 }
 
-setInterval(createIcon, 400);
+const btn=document.querySelector(".theme-toggle");
+if(localStorage.getItem("theme")==="light"){
+    document.body.classList.add("light");
+    btn.innerText="☀️ Light";
+}
+
+/* NỀN ICON */
+const icons=["📚","✏️","📖","📝","📐","🎓"];
+setInterval(()=>{
+    let el=document.createElement("div");
+    el.className="icon";
+    el.innerText=icons[Math.floor(Math.random()*icons.length)];
+    el.style.left=Math.random()*100+"vw";
+    el.style.animationDuration=(6+Math.random()*6)+"s";
+    bg.appendChild(el);
+    setTimeout(()=>el.remove(),10000);
+},400);
 
 /* LOAD */
 showClasses();
