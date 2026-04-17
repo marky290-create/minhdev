@@ -16,7 +16,7 @@ body {
     transition: 0.3s;
 }
 
-/* ===== THEME ===== */
+/* ===== THEME BUTTON ===== */
 .theme-toggle {
     position: fixed;
     top: 20px;
@@ -25,8 +25,10 @@ body {
     border-radius: 20px;
     border: none;
     cursor: pointer;
+    z-index: 1000;
 }
 
+/* ===== LIGHT MODE ===== */
 body.light {
     background: linear-gradient(135deg, #e0f2fe, #f8fafc);
     color: #0f172a;
@@ -36,6 +38,32 @@ body.light .card,
 body.light .intro {
     background: white;
     color: black;
+}
+
+body.light .link {
+    background: #e2e8f0;
+    color: #2563eb;
+}
+
+/* ===== NỀN HỌC TẬP ===== */
+.study-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.icon {
+    position: absolute;
+    font-size: 26px;
+    opacity: 0.15;
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh) rotate(0deg); }
+    to { transform: translateY(-10vh) rotate(360deg); }
 }
 
 /* ===== HEADER ===== */
@@ -110,13 +138,19 @@ body.light .intro {
 
 <body>
 
+<!-- nền -->
+<div class="study-bg" id="bg"></div>
+
+<!-- nút theme -->
 <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
 
+<!-- header -->
 <div class="header">
     <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
+<!-- nội dung -->
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
 
@@ -124,7 +158,15 @@ body.light .intro {
 
 /* DATA */
 const data = {
-    "11A1": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
+    "11A1": {
+        "Nhóm 1": [
+            {name:"Bài tập Toán", link:"#"},
+            {name:"Đề kiểm tra", link:"#"}
+        ],
+        "Nhóm 2": [],
+        "Nhóm 3": [],
+        "Nhóm 4": []
+    },
     "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
     "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
     "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
@@ -133,7 +175,7 @@ const data = {
 let currentClass="";
 const main=document.getElementById("main");
 
-/* ===== MENU CHÍNH ===== */
+/* ===== MENU ===== */
 function showClasses(){
     main.innerHTML="";
     document.getElementById("backBtn").style.display="none";
@@ -158,14 +200,22 @@ function showIntro(){
     main.innerHTML = `
     <div class="intro">
         <h2>📖 Giới thiệu</h2>
-        <p>Website lưu trữ tài liệu môn Giáo dục địa phương cho học sinh khối 11.</p>
-        <p>Phân chia theo lớp và nhóm giúp học sinh dễ tìm kiếm.</p>
+
+        <p>
+            Website được tạo ra nhằm lưu trữ và chia sẻ các tài liệu học tập môn 
+            <b>Giáo dục địa phương</b> dành cho học sinh khối 11.
+        </p>
+
+        <p>
+            Tài liệu được phân chia theo từng lớp và từng nhóm, giúp học sinh dễ dàng 
+            tìm kiếm và sử dụng trong quá trình học tập.
+        </p>
 
         <p>🏫 THPT Đại Ngãi</p>
         <p>📚 Khối 11</p>
         <p>📅 2026</p>
 
-        <p>💡 Hỗ trợ học sinh một cách tiện lợi.</p>
+        <p>💡 Hỗ trợ học tập nhanh chóng và hiệu quả hơn.</p>
     </div>
     `;
     document.getElementById("backBtn").style.display="block";
@@ -190,7 +240,7 @@ function showGroups(c){
 function showLinks(g){
     main.innerHTML="";
     data[currentClass][g].forEach(item=>{
-        main.innerHTML+=`<a href="${item.link}" class="link">${item.name}</a>`;
+        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
     });
 }
 
@@ -218,6 +268,24 @@ if(localStorage.getItem("theme")==="light"){
     document.body.classList.add("light");
     btn.innerText="☀️ Light";
 }
+
+/* ===== NỀN ICON ===== */
+const icons=["📚","✏️","📖","📝","📐","🎓","📊","🧠"];
+
+function createIcon(){
+    let el=document.createElement("div");
+    el.className="icon";
+    el.innerText=icons[Math.floor(Math.random()*icons.length)];
+
+    el.style.left=Math.random()*100+"vw";
+    el.style.animationDuration=(6+Math.random()*6)+"s";
+
+    document.getElementById("bg").appendChild(el);
+
+    setTimeout(()=>el.remove(),10000);
+}
+
+setInterval(createIcon,400);
 
 /* LOAD */
 showClasses();
