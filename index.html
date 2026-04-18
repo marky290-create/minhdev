@@ -2,256 +2,259 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tài liệu lớp 11</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: radial-gradient(circle at top, #0f172a, #020617);
-    color: white;
-    transition: 0.3s;
+:root{
+    --bg-dark:#020617;
+    --bg-light:#f1f5f9;
+    --card-dark:rgba(255,255,255,0.08);
+    --card-light:#ffffff;
+    --accent:cyan;
 }
 
-/* ===== THEME ===== */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    border-radius: 30px;
-    border: none;
-    cursor: pointer;
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:var(--bg-dark);
+    color:white;
+    transition:0.3s;
 }
 
-body.light {
-    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
-    color: black;
+/* LIGHT MODE */
+body.light{
+    background:var(--bg-light);
+    color:black;
 }
 
-/* ===== NỀN ===== */
-.study-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+/* HEADER */
+.header{
+    text-align:center;
+    padding:40px 20px 10px;
 }
 
-.icon {
-    position: absolute;
-    opacity: 0.15;
-    animation: float linear infinite;
+.logo{
+    width:90px;
+    border-radius:50%;
 }
 
-@keyframes float {
-    from { transform: translateY(100vh); }
-    to { transform: translateY(-10vh); }
+h1{
+    font-size:32px;
 }
 
-/* ===== HEADER ===== */
-.header {
-    text-align: center;
-    padding: 40px;
+/* GRID */
+.container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+    padding:25px;
 }
 
-.logo {
-    width: 100px;
-    border-radius: 50%;
+/* CARD */
+.card{
+    padding:25px;
+    border-radius:20px;
+    text-align:center;
+    cursor:pointer;
+    background:var(--card-dark);
+    backdrop-filter:blur(10px);
+    transition:0.3s;
 }
 
-/* ===== GRID ===== */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 25px;
-    padding: 30px;
+body.light .card{
+    background:var(--card-light);
 }
 
-/* ===== CARD ===== */
-.card {
-    padding: 30px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    background: rgba(255,255,255,0.08);
-    text-align: center;
-    cursor: pointer;
-    transition: 0.3s;
+.card:hover{
+    transform:translateY(-6px) scale(1.05);
+    box-shadow:0 10px 25px rgba(0,255,255,0.3);
 }
 
-.card:hover {
-    transform: translateY(-8px) scale(1.05);
-    box-shadow: 0 10px 30px cyan;
+/* LINK */
+.link{
+    display:block;
+    padding:12px;
+    margin:10px auto;
+    width:260px;
+    border-radius:12px;
+    background:rgba(255,255,255,0.1);
+    color:var(--accent);
+    text-decoration:none;
 }
 
-/* ===== CONTENT BOX ===== */
-.box {
-    max-width: 800px;
-    margin: auto;
-    padding: 30px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    line-height: 1.6;
+/* BOX */
+.box{
+    max-width:800px;
+    margin:auto;
+    padding:25px;
+    border-radius:20px;
+    background:var(--card-dark);
 }
 
-/* ===== LINK ===== */
-.link {
-    display: block;
-    padding: 12px;
-    margin: 10px auto;
-    width: 260px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.1);
-    text-decoration: none;
-    color: cyan;
-    transition: 0.3s;
+/* BACK */
+.back{
+    position:fixed;
+    bottom:20px;
+    left:20px;
+    padding:10px 15px;
+    border-radius:20px;
+    background:cyan;
+    color:black;
+    cursor:pointer;
+    display:none;
 }
 
-.link:hover {
-    transform: scale(1.05);
+/* SEARCH */
+.search{
+    text-align:center;
+    margin-top:10px;
 }
 
-/* ===== BACK ===== */
-.back {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    padding: 12px 18px;
-    background: cyan;
-    color: black;
-    border-radius: 30px;
-    cursor: pointer;
-    display: none;
+.search input{
+    padding:10px;
+    width:250px;
+    border-radius:20px;
+    border:none;
+}
+
+/* THEME */
+.theme{
+    position:fixed;
+    top:20px;
+    right:20px;
+    cursor:pointer;
+}
+
+/* TOAST */
+.toast{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:black;
+    color:white;
+    padding:10px 15px;
+    border-radius:10px;
+    opacity:0;
+    transition:0.3s;
 }
 </style>
 </head>
 
 <body>
 
-<div class="study-bg" id="bg"></div>
-
-<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+<div class="theme" onclick="toggleTheme()">🌙</div>
 
 <div class="header">
     <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
+<div class="search">
+    <input placeholder="🔍 Tìm..." onkeyup="search(this.value)">
+</div>
+
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
+<div class="toast" id="toast"></div>
 
 <script>
 
 /* DATA */
-const data = {
-    "11A1": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
+const data={
+ "11A1":{"Nhóm 1":[{name:"Toán",link:"#"}],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A2":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A3":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A6":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]}
 };
 
 let currentClass="";
 const main=document.getElementById("main");
 
-/* ===== MENU ===== */
-function showMenu(){
-    main.innerHTML="";
-    document.getElementById("backBtn").style.display="none";
+/* MENU */
+function menu(){
+ main.innerHTML=`
+ <div class="card">📖 Giới thiệu</div>
+ <div class="card">❓ Hướng dẫn</div>
+ `;
+ Object.keys(data).forEach(c=>{
+   main.innerHTML+=`<div class="card">${c}</div>`;
+ });
 
-    main.innerHTML += `
-    <div class="card">📖 Giới thiệu</div>
-    <div class="card">❓ Hướng dẫn</div>
-    `;
-
-    Object.keys(data).forEach(c=>{
-        main.innerHTML += `<div class="card">${c}</div>`;
-    });
-
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        if(i===0) el.onclick=showIntro;
-        else if(i===1) el.onclick=showGuide;
-        else el.onclick=()=>showGroups(Object.keys(data)[i-2]);
-    });
+ document.querySelectorAll(".card").forEach((el,i)=>{
+  if(i==0) el.onclick=intro;
+  else if(i==1) el.onclick=guide;
+  else el.onclick=()=>groups(Object.keys(data)[i-2]);
+ });
+ backBtn.style.display="none";
 }
 
-/* ===== GIỚI THIỆU ===== */
-function showIntro(){
-    main.innerHTML=`
-    <div class="box">
-        <h2>📖 Giới thiệu</h2>
-        Website lưu trữ tài liệu học tập môn Giáo dục địa phương khối 11.
-        <br><br>
-        🏫 THPT Đại Ngãi<br>
-        📚 Khối 11<br>
-        📅 2026
-    </div>`;
-    backBtn.style.display="block";
+/* INTRO */
+function intro(){
+ main.innerHTML=`<div class="box">
+ <h2>📖 Giới thiệu</h2>
+ Website lưu trữ tài liệu học tập lớp 11.
+ </div>`;
+ backBtn.style.display="block";
 }
 
-/* ===== HƯỚNG DẪN ===== */
-function showGuide(){
-    main.innerHTML=`
-    <div class="box">
-        <h2>❓ Hướng dẫn sử dụng</h2>
-        1. Chọn lớp (11A1, 11A2...)<br>
-        2. Chọn nhóm (Nhóm 1 → 4)<br>
-        3. Nhấn vào tài liệu để mở<br><br>
-
-        💡 Mẹo:
-        <br>- Có thể dùng nút quay lại ⬅
-        <br>- Dùng nút 🌙 để đổi giao diện
-    </div>`;
-    backBtn.style.display="block";
+/* GUIDE */
+function guide(){
+ main.innerHTML=`<div class="box">
+ <h2>❓ Hướng dẫn</h2>
+ Chọn lớp → nhóm → tài liệu để mở.
+ </div>`;
+ backBtn.style.display="block";
 }
 
-/* ===== GROUP ===== */
-function showGroups(c){
-    currentClass=c;
-    main.innerHTML="";
-    backBtn.style.display="block";
-
-    Object.keys(data[c]).forEach(g=>{
-        main.innerHTML+=`<div class="card">${g}</div>`;
-    });
-
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        el.onclick=()=>showLinks(Object.keys(data[c])[i]);
-    });
+/* GROUP */
+function groups(c){
+ currentClass=c;
+ main.innerHTML="";
+ Object.keys(data[c]).forEach(g=>{
+  main.innerHTML+=`<div class="card">${g}</div>`;
+ });
+ document.querySelectorAll(".card").forEach((el,i)=>{
+  el.onclick=()=>links(Object.keys(data[c])[i]);
+ });
+ backBtn.style.display="block";
 }
 
-/* ===== LINK ===== */
-function showLinks(g){
-    main.innerHTML="";
-    data[currentClass][g].forEach(item=>{
-        main.innerHTML+=`<a href="${item.link}" class="link">${item.name}</a>`;
-    });
+/* LINKS */
+function links(g){
+ main.innerHTML="";
+ data[currentClass][g].forEach(i=>{
+  main.innerHTML+=`<a class="link" href="${i.link}" onclick="toastMsg('Đang mở...')">${i.name}</a>`;
+ });
 }
 
-/* ===== BACK ===== */
-function back(){
-    showMenu();
+/* BACK */
+function back(){ menu(); }
+
+/* SEARCH */
+function search(t){
+ document.querySelectorAll(".card,.link").forEach(e=>{
+  e.style.display=e.innerText.toLowerCase().includes(t.toLowerCase())?"block":"none";
+ });
 }
 
-/* ===== THEME ===== */
+/* THEME */
 function toggleTheme(){
-    document.body.classList.toggle("light");
+ document.body.classList.toggle("light");
 }
 
-/* ===== NỀN ===== */
-const icons=["📚","✏️","📖","📝","🎓"];
-setInterval(()=>{
-    let el=document.createElement("div");
-    el.className="icon";
-    el.innerText=icons[Math.floor(Math.random()*icons.length)];
-    el.style.left=Math.random()*100+"vw";
-    el.style.animationDuration=(6+Math.random()*6)+"s";
-    bg.appendChild(el);
-    setTimeout(()=>el.remove(),10000);
-},400);
+/* TOAST */
+function toastMsg(t){
+ let el=document.getElementById("toast");
+ el.innerText=t;
+ el.style.opacity=1;
+ setTimeout(()=>el.style.opacity=0,2000);
+}
 
 /* LOAD */
-showMenu();
+menu();
 
 </script>
 
