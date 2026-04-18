@@ -23,9 +23,24 @@ body.light{
  color:black;
 }
 
-/* HEADER */
-.header{text-align:center;padding:30px;}
-.logo{width:90px;border-radius:50%;}
+/* HEADER (FIX LOGO) */
+.header{
+ text-align:center;
+ padding:30px;
+ display:flex;
+ flex-direction:column;
+ align-items:center;
+ gap:10px;
+}
+
+.logo{
+ width:90px;
+ height:90px;
+ border-radius:50%;
+ object-fit:cover;
+ border:2px solid cyan;
+ box-shadow:0 0 15px cyan;
+}
 
 /* SEARCH */
 .search{text-align:center;}
@@ -68,10 +83,9 @@ body.light{
  color:cyan;text-decoration:none;
  text-align:center;
 }
-.link:hover{transform:scale(1.05);}
 
 /* BUTTON */
-.theme{position:fixed;top:20px;right:20px;cursor:pointer;}
+.theme{position:fixed;top:20px;right:20px;cursor:pointer;font-size:22px;}
 .back{
  position:fixed;bottom:20px;left:20px;
  padding:10px;background:cyan;color:black;
@@ -128,11 +142,9 @@ body.light{
 
 <body>
 
-<div class="bg" id="bg"></div>
-
-<div class="theme" onclick="toggleTheme()">🌙</div>
-
+<!-- LOGO + HEADER -->
 <div class="header">
+ <img src="logo.png" class="logo">
  <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
@@ -140,9 +152,11 @@ body.light{
  <input placeholder="🔍 Tìm..." onkeyup="search(this.value)">
 </div>
 
-<div id="main" class="container"></div>
+<div class="bg" id="bg"></div>
 
-<div class="back" id="backBtn" onclick="menu()">⬅</div>
+<div id="main"></div>
+
+<div class="back" id="backBtn" onclick="menu()">⬅ Quay lại</div>
 <div class="toast" id="toast"></div>
 
 <!-- AI -->
@@ -169,15 +183,26 @@ const backBtn=document.getElementById("backBtn");
 
 /* MENU */
 function menu(){
- main.innerHTML=`
- <div class="card" onclick="intro()">📖 Giới thiệu</div>
- <div class="card" onclick="guide()">❓ Hướng dẫn</div>
+
+ main.innerHTML="";
+
+ const box=document.createElement("div");
+ box.className="container";
+
+ box.innerHTML=`
+  <div class="card" onclick="intro()">📖 Giới thiệu</div>
+  <div class="card" onclick="guide()">❓ Hướng dẫn</div>
  `;
 
  Object.keys(data).forEach(c=>{
-  main.innerHTML+=`<div class="card" onclick="groups('${c}')">${c}</div>`;
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerText=c;
+  div.onclick=()=>groups(c);
+  box.appendChild(div);
  });
 
+ main.appendChild(box);
  backBtn.style.display="none";
 }
 
@@ -196,43 +221,56 @@ function guide(){
  <h2>❓ Hướng dẫn</h2>
  1. Chọn lớp<br>
  2. Chọn nhóm<br>
- 3. Bấm tài liệu để mở
+ 3. Xem tài liệu
  </div>`;
  backBtn.style.display="block";
 }
 
-/* GROUP */
+/* GROUP (FIX CLICK) */
 function groups(c){
  currentClass=c;
  main.innerHTML="";
 
+ const box=document.createElement("div");
+ box.className="container";
+
  Object.keys(data[c]).forEach(g=>{
-  main.innerHTML+=`<div class="card" onclick="links('${g}')">${g}</div>`;
+  const div=document.createElement("div");
+  div.className="card";
+  div.innerText=g;
+  div.onclick=()=>links(g);
+  box.appendChild(div);
  });
 
+ main.appendChild(box);
  backBtn.style.display="block";
 }
 
 /* LINKS */
 function links(g){
  main.innerHTML="";
+
+ const box=document.createElement("div");
+ box.className="container";
+
  data[currentClass][g].forEach(i=>{
-  main.innerHTML+=`
-  <a class="link" href="${i.link}" target="_blank"
-  onclick="toastMsg('Đang mở...')">${i.name}</a>`;
+  const a=document.createElement("a");
+  a.className="link";
+  a.href=i.link;
+  a.target="_blank";
+  a.innerText=i.name;
+  a.onclick=()=>toastMsg("Đang mở...");
+  box.appendChild(a);
  });
+
+ main.appendChild(box);
 }
 
-/* SEARCH - FIX CHÍNH */
+/* SEARCH FIX */
 function search(t){
  t=t.toLowerCase();
-
  document.querySelectorAll(".card,.link").forEach(e=>{
-  if(e.innerText.toLowerCase().includes(t)){
-    e.style.display="block";
-  }else{
-    e.style.display="none";
-  }
+  e.style.display=e.innerText.toLowerCase().includes(t)?"block":"none";
  });
 }
 
@@ -265,7 +303,7 @@ setInterval(()=>{
  setTimeout(()=>el.remove(),10000);
 },400);
 
-/* AI CHAT */
+/* AI */
 function askAI(text){
  let chat=document.getElementById("chat");
  chat.innerHTML+=`<div>👤 ${text}</div>`;
@@ -273,10 +311,9 @@ function askAI(text){
  let t=text.toLowerCase();
  let reply="Mình chưa hiểu 😅";
 
- if(t.includes("tài liệu")) reply="Chọn lớp → nhóm để xem tài liệu nhé!";
- else if(t.includes("11a1")) reply="Bạn vào lớp 11A1 rồi chọn nhóm.";
- else if(t.includes("nhóm")) reply="Mỗi lớp có 4 nhóm.";
- else if(t.includes("hướng dẫn")) reply="Chọn lớp → nhóm → tài liệu là xong.";
+ if(t.includes("tài liệu")) reply="Chọn lớp → nhóm để xem!";
+ else if(t.includes("nhóm")) reply="Có 4 nhóm mỗi lớp.";
+ else if(t.includes("hướng dẫn")) reply="Chọn lớp → nhóm → tài liệu.";
 
  chat.innerHTML+=`<div>🤖 ${reply}</div>`;
  chat.scrollTop=chat.scrollHeight;
