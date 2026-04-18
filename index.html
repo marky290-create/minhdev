@@ -10,66 +10,50 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: #020617;
+    background: radial-gradient(circle at top, #0f172a, #020617);
     color: white;
-    overflow-x: hidden;
     transition: 0.3s;
 }
 
-/* ===== THEME BUTTON ===== */
+/* ===== THEME ===== */
 .theme-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
     padding: 10px 15px;
-    border-radius: 20px;
+    border-radius: 30px;
     border: none;
     cursor: pointer;
-    z-index: 1000;
 }
 
-/* ===== LIGHT MODE ===== */
 body.light {
     background: linear-gradient(135deg, #e0f2fe, #f8fafc);
-    color: #0f172a;
-}
-
-body.light .card,
-body.light .intro {
-    background: white;
     color: black;
 }
 
-body.light .link {
-    background: #e2e8f0;
-    color: #2563eb;
-}
-
-/* ===== NỀN HỌC TẬP ===== */
+/* ===== NỀN ===== */
 .study-bg {
     position: fixed;
     width: 100%;
     height: 100%;
     z-index: -1;
-    overflow: hidden;
 }
 
 .icon {
     position: absolute;
-    font-size: 26px;
     opacity: 0.15;
     animation: float linear infinite;
 }
 
 @keyframes float {
-    from { transform: translateY(100vh) rotate(0deg); }
-    to { transform: translateY(-10vh) rotate(360deg); }
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
 }
 
 /* ===== HEADER ===== */
 .header {
     text-align: center;
-    padding: 40px 20px;
+    padding: 40px;
 }
 
 .logo {
@@ -80,33 +64,35 @@ body.light .link {
 /* ===== GRID ===== */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 25px;
     padding: 30px;
 }
 
 /* ===== CARD ===== */
 .card {
-    padding: 25px;
+    padding: 30px;
     border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.08);
     text-align: center;
     cursor: pointer;
-    background: rgba(255,255,255,0.08);
     transition: 0.3s;
 }
 
 .card:hover {
-    transform: scale(1.1);
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 10px 30px cyan;
 }
 
-/* ===== INTRO ===== */
-.intro {
+/* ===== CONTENT BOX ===== */
+.box {
     max-width: 800px;
     margin: auto;
-    padding: 25px;
+    padding: 30px;
     border-radius: 20px;
     background: rgba(255,255,255,0.08);
-    text-align: center;
+    line-height: 1.6;
 }
 
 /* ===== LINK ===== */
@@ -114,11 +100,16 @@ body.light .link {
     display: block;
     padding: 12px;
     margin: 10px auto;
-    width: 250px;
+    width: 260px;
     border-radius: 10px;
     background: rgba(255,255,255,0.1);
     text-decoration: none;
     color: cyan;
+    transition: 0.3s;
+}
+
+.link:hover {
+    transform: scale(1.05);
 }
 
 /* ===== BACK ===== */
@@ -126,10 +117,10 @@ body.light .link {
     position: fixed;
     bottom: 20px;
     left: 20px;
-    padding: 10px 15px;
+    padding: 12px 18px;
     background: cyan;
     color: black;
-    border-radius: 20px;
+    border-radius: 30px;
     cursor: pointer;
     display: none;
 }
@@ -138,19 +129,15 @@ body.light .link {
 
 <body>
 
-<!-- nền -->
 <div class="study-bg" id="bg"></div>
 
-<!-- nút theme -->
-<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
-<!-- header -->
 <div class="header">
     <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
-<!-- nội dung -->
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
 
@@ -158,12 +145,7 @@ body.light .link {
 
 /* DATA */
 const data = {
-    "11A1": {
-        "Nhóm 1": [{name:"LINK VIDEO", link:"https://www.youtube.com/watch?v=sPQXOA6pzOg&list=RD4LQt5y41Y78&index=4"}],
-        "Nhóm 2": [],
-        "Nhóm 3": [],
-        "Nhóm 4": []
-    },
+    "11A1": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
     "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
     "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
     "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
@@ -173,56 +155,61 @@ let currentClass="";
 const main=document.getElementById("main");
 
 /* ===== MENU ===== */
-function showClasses(){
+function showMenu(){
     main.innerHTML="";
     document.getElementById("backBtn").style.display="none";
 
-    main.innerHTML += `<div class="card">📖 Giới thiệu</div>`;
+    main.innerHTML += `
+    <div class="card">📖 Giới thiệu</div>
+    <div class="card">❓ Hướng dẫn</div>
+    `;
 
     Object.keys(data).forEach(c=>{
         main.innerHTML += `<div class="card">${c}</div>`;
     });
 
     document.querySelectorAll(".card").forEach((el,i)=>{
-        if(i===0){
-            el.onclick=showIntro;
-        } else {
-            el.onclick=()=>showGroups(Object.keys(data)[i-1]);
-        }
+        if(i===0) el.onclick=showIntro;
+        else if(i===1) el.onclick=showGuide;
+        else el.onclick=()=>showGroups(Object.keys(data)[i-2]);
     });
 }
 
 /* ===== GIỚI THIỆU ===== */
 function showIntro(){
-    main.innerHTML = `
-    <div class="intro">
+    main.innerHTML=`
+    <div class="box">
         <h2>📖 Giới thiệu</h2>
+        Website lưu trữ tài liệu học tập môn Giáo dục địa phương khối 11.
+        <br><br>
+        🏫 THPT Đại Ngãi<br>
+        📚 Khối 11<br>
+        📅 2026
+    </div>`;
+    backBtn.style.display="block";
+}
 
-        <p>
-            Website được tạo ra nhằm lưu trữ và chia sẻ các tài liệu học tập môn 
-            <b>Giáo dục địa phương</b> dành cho học sinh khối 11.
-        </p>
+/* ===== HƯỚNG DẪN ===== */
+function showGuide(){
+    main.innerHTML=`
+    <div class="box">
+        <h2>❓ Hướng dẫn sử dụng</h2>
+        1. Chọn lớp (11A1, 11A2...)<br>
+        2. Chọn nhóm (Nhóm 1 → 4)<br>
+        3. Nhấn vào tài liệu để mở<br><br>
 
-        <p>
-            Tài liệu được phân chia theo từng lớp và từng nhóm, giúp học sinh dễ dàng 
-            tìm kiếm và sử dụng trong quá trình học tập.
-        </p>
-
-        <p>🏫 THPT Đại Ngãi</p>
-        <p>📚 Khối 11</p>
-        <p>📅 2026</p>
-
-        <p>💡 Hỗ trợ học tập nhanh chóng và hiệu quả hơn.</p>
-    </div>
-    `;
-    document.getElementById("backBtn").style.display="block";
+        💡 Mẹo:
+        <br>- Có thể dùng nút quay lại ⬅
+        <br>- Dùng nút 🌙 để đổi giao diện
+    </div>`;
+    backBtn.style.display="block";
 }
 
 /* ===== GROUP ===== */
 function showGroups(c){
     currentClass=c;
     main.innerHTML="";
-    document.getElementById("backBtn").style.display="block";
+    backBtn.style.display="block";
 
     Object.keys(data[c]).forEach(g=>{
         main.innerHTML+=`<div class="card">${g}</div>`;
@@ -237,55 +224,34 @@ function showGroups(c){
 function showLinks(g){
     main.innerHTML="";
     data[currentClass][g].forEach(item=>{
-        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
+        main.innerHTML+=`<a href="${item.link}" class="link">${item.name}</a>`;
     });
 }
 
 /* ===== BACK ===== */
 function back(){
-    showClasses();
+    showMenu();
 }
 
 /* ===== THEME ===== */
 function toggleTheme(){
     document.body.classList.toggle("light");
-    const btn=document.querySelector(".theme-toggle");
-
-    if(document.body.classList.contains("light")){
-        btn.innerText="☀️ Light";
-        localStorage.setItem("theme","light");
-    } else {
-        btn.innerText="🌙 Dark";
-        localStorage.setItem("theme","dark");
-    }
 }
 
-const btn=document.querySelector(".theme-toggle");
-if(localStorage.getItem("theme")==="light"){
-    document.body.classList.add("light");
-    btn.innerText="☀️ Light";
-}
-
-/* ===== NỀN ICON ===== */
-const icons=["📚","✏️","📖","📝","📐","🎓","📊","🧠"];
-
-function createIcon(){
+/* ===== NỀN ===== */
+const icons=["📚","✏️","📖","📝","🎓"];
+setInterval(()=>{
     let el=document.createElement("div");
     el.className="icon";
     el.innerText=icons[Math.floor(Math.random()*icons.length)];
-
     el.style.left=Math.random()*100+"vw";
     el.style.animationDuration=(6+Math.random()*6)+"s";
-
-    document.getElementById("bg").appendChild(el);
-
+    bg.appendChild(el);
     setTimeout(()=>el.remove(),10000);
-}
-
-setInterval(createIcon,400);
+},400);
 
 /* LOAD */
-showClasses();
+showMenu();
 
 </script>
 
