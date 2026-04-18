@@ -8,157 +8,148 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-    --bg-dark:#020617;
-    --bg-light:#f1f5f9;
-    --card-dark:rgba(255,255,255,0.08);
-    --card-light:#ffffff;
-    --accent:cyan;
-}
-
 body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:var(--bg-dark);
-    color:white;
-    transition:0.3s;
+ margin:0;
+ font-family:'Poppins',sans-serif;
+ background:#020617;
+ color:white;
+ overflow-x:hidden;
+ transition:0.3s;
 }
 
 /* LIGHT MODE */
 body.light{
-    background:var(--bg-light);
-    color:black;
+ background:#f1f5f9;
+ color:black;
 }
 
 /* HEADER */
-.header{
-    text-align:center;
-    padding:40px 20px 10px;
-}
+.header{text-align:center;padding:30px;}
+.logo{width:90px;border-radius:50%;}
 
-.logo{
-    width:90px;
-    border-radius:50%;
-}
-
-h1{
-    font-size:32px;
+/* SEARCH */
+.search{text-align:center;}
+.search input{
+ padding:10px;width:250px;border-radius:20px;border:none;
 }
 
 /* GRID */
 .container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:20px;
-    padding:25px;
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+ gap:20px;padding:20px;
 }
 
 /* CARD */
 .card{
-    padding:25px;
-    border-radius:20px;
-    text-align:center;
-    cursor:pointer;
-    background:var(--card-dark);
-    backdrop-filter:blur(10px);
-    transition:0.3s;
+ padding:25px;border-radius:20px;
+ background:rgba(255,255,255,0.08);
+ backdrop-filter:blur(10px);
+ text-align:center;
+ cursor:pointer;
+ transition:0.3s;
 }
-
-body.light .card{
-    background:var(--card-light);
-}
-
 .card:hover{
-    transform:translateY(-6px) scale(1.05);
-    box-shadow:0 10px 25px rgba(0,255,255,0.3);
-}
-
-/* LINK */
-.link{
-    display:block;
-    padding:12px;
-    margin:10px auto;
-    width:260px;
-    border-radius:12px;
-    background:rgba(255,255,255,0.1);
-    color:var(--accent);
-    text-decoration:none;
+ transform:scale(1.05);
+ box-shadow:0 10px 25px cyan;
 }
 
 /* BOX */
 .box{
-    max-width:800px;
-    margin:auto;
-    padding:25px;
-    border-radius:20px;
-    background:var(--card-dark);
+ max-width:700px;margin:auto;padding:20px;
+ border-radius:20px;background:rgba(255,255,255,0.08);
 }
 
-/* BACK */
+/* LINK */
+.link{
+ display:block;margin:10px auto;padding:12px;
+ width:260px;border-radius:12px;
+ background:rgba(255,255,255,0.1);
+ color:cyan;text-decoration:none;
+}
+.link:hover{transform:scale(1.05);}
+
+/* BUTTON */
+.theme{position:fixed;top:20px;right:20px;cursor:pointer;}
 .back{
-    position:fixed;
-    bottom:20px;
-    left:20px;
-    padding:10px 15px;
-    border-radius:20px;
-    background:cyan;
-    color:black;
-    cursor:pointer;
-    display:none;
-}
-
-/* SEARCH */
-.search{
-    text-align:center;
-    margin-top:10px;
-}
-
-.search input{
-    padding:10px;
-    width:250px;
-    border-radius:20px;
-    border:none;
-}
-
-/* THEME */
-.theme{
-    position:fixed;
-    top:20px;
-    right:20px;
-    cursor:pointer;
+ position:fixed;bottom:20px;left:20px;
+ padding:10px;background:cyan;color:black;
+ border-radius:20px;cursor:pointer;display:none;
 }
 
 /* TOAST */
 .toast{
-    position:fixed;
-    bottom:20px;
-    right:20px;
-    background:black;
-    color:white;
-    padding:10px 15px;
-    border-radius:10px;
-    opacity:0;
-    transition:0.3s;
+ position:fixed;bottom:20px;right:20px;
+ background:black;color:white;padding:10px;
+ border-radius:10px;opacity:0;transition:0.3s;
+}
+
+/* NỀN */
+.bg{position:fixed;width:100%;height:100%;z-index:-1;}
+.icon{
+ position:absolute;opacity:0.15;
+ animation:float linear infinite;
+}
+@keyframes float{
+ from{transform:translateY(100vh);}
+ to{transform:translateY(-10vh);}
+}
+
+/* AI CHAT */
+.chatbox{
+ position:fixed;
+ bottom:80px;
+ right:20px;
+ width:260px;
+ background:#111;
+ border-radius:12px;
+ overflow:hidden;
+ font-size:14px;
+}
+.chat-header{
+ background:cyan;
+ color:black;
+ padding:6px;
+ text-align:center;
+}
+#chat{
+ height:150px;
+ overflow-y:auto;
+ padding:5px;
+}
+.chatbox input{
+ width:100%;
+ border:none;
+ padding:8px;
 }
 </style>
 </head>
 
 <body>
 
+<div class="bg" id="bg"></div>
+
 <div class="theme" onclick="toggleTheme()">🌙</div>
 
 <div class="header">
-    <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
-    <h1>📚 TÀI LIỆU LỚP 11</h1>
+ <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
+ <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
 <div class="search">
-    <input placeholder="🔍 Tìm..." onkeyup="search(this.value)">
+ <input placeholder="🔍 Tìm..." onkeyup="search(this.value)">
 </div>
 
 <div id="main" class="container"></div>
-<div class="back" id="backBtn" onclick="back()">⬅</div>
+<div class="back" id="backBtn" onclick="menu()">⬅</div>
 <div class="toast" id="toast"></div>
+
+<!-- AI -->
+<div class="chatbox">
+ <div class="chat-header">🤖 Trợ lý học tập</div>
+ <div id="chat"></div>
+ <input placeholder="Hỏi..." onkeydown="if(event.key==='Enter') askAI(this.value)">
+</div>
 
 <script>
 
@@ -180,7 +171,7 @@ function menu(){
  <div class="card">❓ Hướng dẫn</div>
  `;
  Object.keys(data).forEach(c=>{
-   main.innerHTML+=`<div class="card">${c}</div>`;
+  main.innerHTML+=`<div class="card">${c}</div>`;
  });
 
  document.querySelectorAll(".card").forEach((el,i)=>{
@@ -188,6 +179,7 @@ function menu(){
   else if(i==1) el.onclick=guide;
   else el.onclick=()=>groups(Object.keys(data)[i-2]);
  });
+
  backBtn.style.display="none";
 }
 
@@ -204,7 +196,9 @@ function intro(){
 function guide(){
  main.innerHTML=`<div class="box">
  <h2>❓ Hướng dẫn</h2>
- Chọn lớp → nhóm → tài liệu để mở.
+ 1. Chọn lớp<br>
+ 2. Chọn nhóm<br>
+ 3. Bấm tài liệu để mở
  </div>`;
  backBtn.style.display="block";
 }
@@ -216,9 +210,11 @@ function groups(c){
  Object.keys(data[c]).forEach(g=>{
   main.innerHTML+=`<div class="card">${g}</div>`;
  });
+
  document.querySelectorAll(".card").forEach((el,i)=>{
   el.onclick=()=>links(Object.keys(data[c])[i]);
  });
+
  backBtn.style.display="block";
 }
 
@@ -226,23 +222,24 @@ function groups(c){
 function links(g){
  main.innerHTML="";
  data[currentClass][g].forEach(i=>{
-  main.innerHTML+=`<a class="link" href="${i.link}" onclick="toastMsg('Đang mở...')">${i.name}</a>`;
+  main.innerHTML+=`<a class="link" href="${i.link}" target="_blank" onclick="toastMsg('Đang mở...')">${i.name}</a>`;
  });
 }
-
-/* BACK */
-function back(){ menu(); }
 
 /* SEARCH */
 function search(t){
  document.querySelectorAll(".card,.link").forEach(e=>{
-  e.style.display=e.innerText.toLowerCase().includes(t.toLowerCase())?"block":"none";
+  e.style.display=e.innerText.toLowerCase().includes(t.toLowerCase())?"block":"block":"none";
  });
 }
 
 /* THEME */
 function toggleTheme(){
  document.body.classList.toggle("light");
+ localStorage.setItem("theme",document.body.classList.contains("light"));
+}
+if(localStorage.getItem("theme")=="true"){
+ document.body.classList.add("light");
 }
 
 /* TOAST */
@@ -251,6 +248,47 @@ function toastMsg(t){
  el.innerText=t;
  el.style.opacity=1;
  setTimeout(()=>el.style.opacity=0,2000);
+}
+
+/* NỀN */
+const icons=["📚","✏️","📖","📝","🎓"];
+setInterval(()=>{
+ let el=document.createElement("div");
+ el.className="icon";
+ el.innerText=icons[Math.floor(Math.random()*icons.length)];
+ el.style.left=Math.random()*100+"vw";
+ el.style.animationDuration=(6+Math.random()*6)+"s";
+ bg.appendChild(el);
+ setTimeout(()=>el.remove(),10000);
+},400);
+
+/* AI */
+function askAI(text){
+ let chat=document.getElementById("chat");
+ chat.innerHTML+=`<div>👤 ${text}</div>`;
+
+ let reply="Mình chưa hiểu 😅";
+
+ let t=text.toLowerCase();
+
+ if(t.includes("tài liệu")){
+  reply="Bạn chọn lớp → nhóm để xem tài liệu nhé!";
+ }
+ else if(t.includes("11a1")){
+  reply="Bạn vào lớp 11A1 rồi chọn nhóm để xem.";
+ }
+ else if(t.includes("nhóm")){
+  reply="Mỗi lớp có 4 nhóm (Nhóm 1 → 4).";
+ }
+ else if(t.includes("cách dùng")||t.includes("hướng dẫn")){
+  reply="Bạn chỉ cần chọn lớp → nhóm → tài liệu là xong.";
+ }
+ else{
+  reply="Bạn có thể hỏi về lớp, nhóm hoặc tài liệu.";
+ }
+
+ chat.innerHTML+=`<div>🤖 ${reply}</div>`;
+ chat.scrollTop=chat.scrollHeight;
 }
 
 /* LOAD */
