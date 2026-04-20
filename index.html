@@ -3,165 +3,128 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>FINAL BOSS UI - Tài liệu 11</title>
+<title>Tài liệu lớp 11</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body{
- margin:0;
- font-family:Poppins;
- background:#020617;
- color:white;
- overflow:hidden;
- cursor:none;
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #020617;
+    color: white;
 }
 
-/* ===== LOADING ===== */
+/* LOADING */
 #loading{
- position:fixed;
- width:100%;
- height:100%;
- background:#000;
- display:flex;
- justify-content:center;
- align-items:center;
- flex-direction:column;
- z-index:9999;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
 }
-.loader{
- width:60px;
- height:60px;
- border:5px solid rgba(255,255,255,0.2);
- border-top:5px solid cyan;
- border-radius:50%;
- animation:spin 1s linear infinite;
+.progress{
+    width:250px;
+    height:8px;
+    background:#222;
+    border-radius:10px;
 }
-@keyframes spin{to{transform:rotate(360deg);}}
-
-/* ===== CURSOR ===== */
-.cursor{
- position:fixed;
- width:15px;
- height:15px;
- background:cyan;
- border-radius:50%;
- pointer-events:none;
- z-index:9999;
- box-shadow:0 0 15px cyan,0 0 30px cyan;
- transform:translate(-50%,-50%);
-}
-.cursor-ring{
- position:fixed;
- width:40px;
- height:40px;
- border:2px solid cyan;
- border-radius:50%;
- pointer-events:none;
- z-index:9998;
- transform:translate(-50%,-50%);
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:cyan;
 }
 
-/* ===== SPOTLIGHT ===== */
-.spotlight{
- position:fixed;
- width:100%;
- height:100%;
- pointer-events:none;
- z-index:-1;
-}
-
-/* ===== PARTICLE ===== */
-canvas{
- position:fixed;
- top:0;
- left:0;
- z-index:-2;
-}
-
-/* ===== LAYOUT ===== */
-.app{
- display:flex;
- height:100vh;
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar{
- width:220px;
- background:rgba(0,0,0,0.6);
- backdrop-filter:blur(10px);
- border-right:1px solid rgba(0,255,255,0.2);
- padding:20px;
-}
-.sidebar h2{
+/* HEADER */
+.header{
  text-align:center;
- color:cyan;
- text-shadow:0 0 10px cyan;
-}
-.menu-item{
- padding:12px;
- margin:10px 0;
- border-radius:10px;
- cursor:pointer;
- transition:0.3s;
-}
-.menu-item:hover{
- box-shadow:0 0 15px cyan;
- transform:translateX(5px);
-}
-
-/* ===== MAIN ===== */
-.main{
- flex:1;
  padding:30px;
- overflow:auto;
- transition:0.2s;
 }
 
-/* ===== PANEL ===== */
-.panel{
- background:rgba(255,255,255,0.05);
- backdrop-filter:blur(15px);
- border:1px solid rgba(0,255,255,0.2);
- border-radius:15px;
+/* GRID */
+.container{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+ gap:15px;
  padding:20px;
- animation:fade 0.5s;
-}
-@keyframes fade{
- from{opacity:0; transform:translateY(10px);}
- to{opacity:1; transform:translateY(0);}
 }
 
-/* ===== CARD ===== */
+/* CARD */
 .card{
  padding:20px;
- margin:10px;
- display:inline-block;
- border-radius:12px;
- border:1px solid rgba(0,255,255,0.2);
+ border-radius:15px;
+ text-align:center;
+ background:rgba(255,255,255,0.08);
  cursor:pointer;
- transition:0.3s;
+ border:1px solid rgba(0,255,255,0.2);
 }
 .card:hover{
+ box-shadow:0 0 15px cyan;
  transform:scale(1.05);
- box-shadow:0 0 20px cyan;
 }
 
-/* ===== LINK ===== */
+/* LINK */
 .link{
  display:block;
- padding:12px;
+ padding:10px;
  margin:10px;
- border-radius:10px;
  border:1px solid cyan;
  color:cyan;
  text-decoration:none;
-}
-.link:hover{
- box-shadow:0 0 10px cyan;
+ border-radius:10px;
 }
 
-/* ===== RIPPLE ===== */
+/* BACK */
+.back{
+ position:fixed;
+ bottom:20px;
+ left:20px;
+ padding:10px;
+ background:cyan;
+ color:black;
+ border-radius:10px;
+ cursor:pointer;
+ display:none;
+}
+
+/* AI */
+.ai-box{
+ position:fixed;
+ bottom:20px;
+ right:20px;
+ width:260px;
+ background:rgba(0,0,0,0.7);
+ border:1px solid cyan;
+ border-radius:10px;
+ overflow:hidden;
+}
+.ai-header{
+ background:cyan;
+ color:black;
+ padding:8px;
+ text-align:center;
+}
+.ai-chat{
+ height:180px;
+ overflow:auto;
+ padding:10px;
+ font-size:13px;
+}
+.ai-user{color:white;}
+.ai-bot{color:cyan;}
+#input{
+ width:100%;
+ padding:8px;
+ border:none;
+ outline:none;
+ background:#020617;
+ color:white;
+}
+
+/* RIPPLE */
 @keyframes ripple{
  from{transform:scale(1);opacity:0.7;}
  to{transform:scale(10);opacity:0;}
@@ -171,40 +134,32 @@ canvas{
 
 <body>
 
-<!-- LOADING -->
 <div id="loading">
- <div class="loader"></div>
- <p>Loading...</p>
+ <div>
+  <h2>Loading...</h2>
+  <div class="progress"><div class="progress-bar" id="bar"></div></div>
+ </div>
 </div>
 
-<!-- CURSOR -->
-<div class="cursor"></div>
-<div class="cursor-ring"></div>
-<div class="spotlight" id="light"></div>
-
-<canvas id="bg"></canvas>
-
-<div class="app">
-
-<div class="sidebar">
- <h2>📚 TL11</h2>
- <div class="menu-item" onclick="home()">🏠 Trang chủ</div>
- <div class="menu-item" onclick="intro()">📖 Giới thiệu</div>
+<div class="header">
+ <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
-<div class="main" id="main"></div>
+<div id="main" class="container"></div>
+<div class="back" id="backBtn" onclick="back()">⬅</div>
 
+<!-- AI -->
+<div class="ai-box">
+ <div class="ai-header">🤖 AI Chat</div>
+ <div class="ai-chat" id="chat"></div>
+ <input id="input" placeholder="Hỏi gì đó..." onkeydown="if(event.key==='Enter') send()">
 </div>
 
 <script>
 
-/* ===== SOUND ===== */
-const clickSound=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
-const hoverSound=new Audio("https://www.soundjay.com/buttons/sounds/button-09.mp3");
-
-/* ===== DATA ===== */
+/* DATA */
 const data={
- "11A1":{"Nhóm 1":[{name:"Toán",link:"#"}],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A1":{"Nhóm 1":[{name:"Toán",link:"https://google.com"}],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
  "11A2":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
  "11A3":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
  "11A6":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]}
@@ -213,108 +168,96 @@ const data={
 let currentClass="";
 const main=document.getElementById("main");
 
-/* ===== HOME ===== */
-function home(){
- clickSound.play();
- main.innerHTML='<div class="panel"><h2>Chọn lớp</h2></div>';
+/* MENU */
+function showClasses(){
+ main.innerHTML="";
+ backBtn.style.display="none";
+
+ main.innerHTML+=`<div class="card">📖 Giới thiệu</div>`;
+
  Object.keys(data).forEach(c=>{
   main.innerHTML+=`<div class="card">${c}</div>`;
  });
+
  document.querySelectorAll(".card").forEach((el,i)=>{
-  el.onclick=()=>groups(Object.keys(data)[i]);
+  if(i===0) el.onclick=showIntro;
+  else el.onclick=()=>showGroups(Object.keys(data)[i-1]);
  });
 }
 
-/* ===== INTRO ===== */
-function intro(){
- clickSound.play();
- main.innerHTML='<div class="panel">Website tài liệu lớp 11</div>';
+/* INTRO */
+function showIntro(){
+ main.innerHTML=`<div class="card">Website lưu trữ tài liệu lớp 11</div>`;
+ backBtn.style.display="block";
 }
 
-/* ===== GROUP ===== */
-function groups(c){
- clickSound.play();
+/* GROUP */
+function showGroups(c){
  currentClass=c;
- main.innerHTML='<div class="panel"><h2>'+c+'</h2></div>';
+ main.innerHTML="";
+ backBtn.style.display="block";
+
  Object.keys(data[c]).forEach(g=>{
   main.innerHTML+=`<div class="card">${g}</div>`;
  });
+
  document.querySelectorAll(".card").forEach((el,i)=>{
-  el.onclick=()=>links(Object.keys(data[c])[i]);
+  el.onclick=()=>showLinks(Object.keys(data[c])[i]);
  });
 }
 
-/* ===== LINKS ===== */
-function links(g){
- clickSound.play();
- main.innerHTML='<div class="panel"><h2>'+g+'</h2></div>';
+/* LINK */
+function showLinks(g){
+ main.innerHTML="";
  data[currentClass][g].forEach(i=>{
   main.innerHTML+=`<a class="link" href="${i.link}" target="_blank">${i.name}</a>`;
  });
 }
 
-/* ===== PARTICLE ===== */
-const canvas=document.getElementById("bg");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<80;i++){
- particles.push({
-  x:Math.random()*canvas.width,
-  y:Math.random()*canvas.height,
-  dx:(Math.random()-0.5)*0.5,
-  dy:(Math.random()-0.5)*0.5
- });
+/* BACK */
+function back(){
+ showClasses();
 }
 
-function draw(){
- ctx.clearRect(0,0,canvas.width,canvas.height);
- ctx.fillStyle="cyan";
- particles.forEach(p=>{
-  ctx.beginPath();
-  ctx.arc(p.x,p.y,2,0,Math.PI*2);
-  ctx.fill();
-  p.x+=p.dx;
-  p.y+=p.dy;
-  if(p.x<0||p.x>canvas.width) p.dx*=-1;
-  if(p.y<0||p.y>canvas.height) p.dy*=-1;
- });
- requestAnimationFrame(draw);
+/* AI SMART */
+function normalize(t){
+ return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 }
-draw();
 
-/* ===== CURSOR ===== */
-const cursor=document.querySelector(".cursor");
-const ring=document.querySelector(".cursor-ring");
+function send(){
+ let input=document.getElementById("input");
+ let text=input.value.trim();
+ if(!text) return;
 
-document.addEventListener("mousemove",e=>{
- cursor.style.left=e.clientX+"px";
- cursor.style.top=e.clientY+"px";
- setTimeout(()=>{
-  ring.style.left=e.clientX+"px";
-  ring.style.top=e.clientY+"px";
- },50);
+ let chat=document.getElementById("chat");
+ chat.innerHTML+=`<div class="ai-user">👤 ${text}</div>`;
 
- document.getElementById("light").style.background=
- `radial-gradient(circle at ${e.clientX}px ${e.clientY}px,
- rgba(0,255,255,0.15), transparent 40%)`;
+ let t=normalize(text);
+ let foundClass=Object.keys(data).find(c=>t.includes(c.toLowerCase()));
+ let foundGroup=foundClass && Object.keys(data[foundClass]).find(g=>t.includes(normalize(g)));
 
- const x=(e.clientX/window.innerWidth-0.5)*10;
- const y=(e.clientY/window.innerHeight-0.5)*10;
- document.querySelector(".main").style.transform=`translate(${x}px,${y}px)`;
-});
+ let reply="🤖 Không hiểu 😅";
 
-/* ===== HOVER SOUND ===== */
-document.addEventListener("mouseover",e=>{
- if(e.target.classList.contains("card")||e.target.classList.contains("menu-item")){
-  hoverSound.currentTime=0;
-  hoverSound.play();
+ if(foundClass && foundGroup){
+  let links=data[foundClass][foundGroup];
+  if(links.length===0){
+   reply="Nhóm chưa có tài liệu";
+  }else{
+   reply=`📚 ${foundClass} - ${foundGroup}<br>`;
+   links.forEach(l=>{
+    reply+=`👉 <a href="${l.link}" target="_blank" style="color:cyan">${l.name}</a><br>`;
+   });
+  }
+ }else{
+  reply="Thử hỏi: 11A1 nhóm 1";
  }
-});
 
-/* ===== RIPPLE ===== */
+ chat.innerHTML+=`<div class="ai-bot">${reply}</div>`;
+ chat.scrollTop=chat.scrollHeight;
+ input.value="";
+}
+
+/* RIPPLE */
 document.addEventListener("click",e=>{
  let r=document.createElement("span");
  r.style.position="fixed";
@@ -329,15 +272,19 @@ document.addEventListener("click",e=>{
  setTimeout(()=>r.remove(),600);
 });
 
-/* ===== LOADING ===== */
-window.onload=()=>{
- setTimeout(()=>{
-  document.getElementById("loading").style.display="none";
- },800);
-};
+/* LOADING */
+let p=0;
+let load=setInterval(()=>{
+ p+=10;
+ bar.style.width=p+"%";
+ if(p>=100){
+  clearInterval(load);
+  loading.style.display="none";
+ }
+},100);
 
-/* LOAD */
-home();
+/* START */
+showClasses();
 
 </script>
 
