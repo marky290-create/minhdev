@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -13,6 +14,7 @@ body {
     background: #020617;
     color: white;
     overflow-x: hidden;
+    transition: 0.3s;
 }
 
 /* ===== LOADING ===== */
@@ -20,16 +22,29 @@ body {
     position:fixed;
     width:100%;
     height:100%;
-    background:#000;
+    background:radial-gradient(circle,#020617,#000);
     display:flex;
     justify-content:center;
     align-items:center;
     z-index:9999;
+    transition:0.5s;
+}
+.loading-logo{
+    width:80px;
+    border-radius:50%;
+    animation:glow 2s infinite alternate;
+}
+@keyframes glow{
+    from{box-shadow:0 0 10px cyan;}
+    to{box-shadow:0 0 30px cyan;}
 }
 .progress{
-    width:200px;
+    width:250px;
     height:8px;
-    background:#222;
+    background:rgba(255,255,255,0.2);
+    border-radius:10px;
+    margin:10px auto;
+    overflow:hidden;
 }
 .progress-bar{
     height:100%;
@@ -37,13 +52,89 @@ body {
     background:cyan;
 }
 
-/* ===== CREDIT ===== */
+/* ===== HACKER TEXT ===== */
 .credit{
  position:fixed;
  bottom:10px;
  right:15px;
- color:cyan;
  font-size:13px;
+ color:#00ffff;
+ text-shadow:0 0 5px #00ffff, 0 0 15px #00ffff;
+ pointer-events:none;
+}
+
+/* glitch */
+.credit.glitch{
+ animation:glitch 1s infinite;
+}
+@keyframes glitch{
+ 0%{transform:translate(0);}
+ 20%{transform:translate(-1px,1px);}
+ 40%{transform:translate(1px,-1px);}
+ 60%{transform:translate(-1px,-1px);}
+ 80%{transform:translate(1px,1px);}
+ 100%{transform:translate(0);}
+}
+
+/* ===== THEME BUTTON ===== */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* ===== LIGHT MODE ===== */
+body.light {
+    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+    color: #0f172a;
+}
+
+body.light .card,
+body.light .intro {
+    background: white;
+    color: black;
+}
+
+body.light .link {
+    background: #e2e8f0;
+    color: #2563eb;
+}
+
+/* ===== NỀN ===== */
+.study-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.icon {
+    position: absolute;
+    font-size: 26px;
+    opacity: 0.15;
+    animation: float linear infinite;
+}
+
+@keyframes float {
+    from { transform: translateY(100vh) rotate(0deg); }
+    to { transform: translateY(-10vh) rotate(360deg); }
+}
+
+/* ===== HEADER ===== */
+.header {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.logo {
+    width: 100px;
+    border-radius: 50%;
 }
 
 /* ===== GRID ===== */
@@ -56,11 +147,28 @@ body {
 
 /* ===== CARD ===== */
 .card {
-    padding: 20px;
-    border-radius: 15px;
+    padding: 25px;
+    border-radius: 20px;
     text-align: center;
     cursor: pointer;
     background: rgba(255,255,255,0.08);
+    transition: 0.3s;
+    border:1px solid rgba(0,255,255,0.2);
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow:0 0 15px cyan;
+}
+
+/* ===== INTRO ===== */
+.intro {
+    max-width: 800px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.08);
+    text-align: center;
 }
 
 /* ===== LINK ===== */
@@ -69,36 +177,63 @@ body {
     padding: 12px;
     margin: 10px auto;
     width: 250px;
+    border-radius: 10px;
     background: rgba(255,255,255,0.1);
     text-decoration: none;
     color: cyan;
 }
 
-/* ===== AI BOX ===== */
-#aiBox{
+/* ===== BACK ===== */
+.back {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 15px;
+    background: cyan;
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+/* AI */
+.ai-box{
  position:fixed;
  bottom:20px;
  right:20px;
  width:260px;
- background:#020617;
+ background:rgba(0,0,0,0.7);
  border:1px solid cyan;
- border-radius:12px;
+ border-radius:10px;
  overflow:hidden;
- font-size:13px;
 }
-
-#chatbox{
+.ai-header{
+ background:cyan;
+ color:black;
+ padding:8px;
+ text-align:center;
+}
+.ai-chat{
  height:180px;
  overflow:auto;
  padding:10px;
+ font-size:13px;
+}
+.ai-user{color:white;}
+.ai-bot{color:cyan;}
+#input{
+ width:100%;
+ padding:8px;
+ border:none;
+ outline:none;
+ background:#020617;
+ color:white;
 }
 
-#userInput{
- width:100%;
- padding:10px;
- background:#000;
- color:white;
- border:none;
+/* ===== RIPPLE ===== */
+@keyframes ripple{
+ from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
+ to{transform:translate(-50%,-50%) scale(12);opacity:0;}
 }
 </style>
 </head>
@@ -107,35 +242,58 @@ body {
 
 <!-- LOADING -->
 <div id="loading">
-    <div>
-        <h2>Loading...</h2>
+    <div style="text-align:center">
+        <img src="logo.png" class="loading-logo">
+        <h2>Tài liệu lớp 11</h2>
         <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
         </div>
+        <p id="loadingText">Đang tải...</p>
     </div>
 </div>
 
-<!-- MAIN -->
-<div id="main" class="container"></div>
+<!-- nền -->
+<div class="study-bg" id="bg"></div>
 
-<!-- CREDIT -->
-<div class="credit">🤖 Website do AI tạo ra</div>
+<!-- nút theme -->
+<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
 
-<!-- AI -->
-<div id="aiBox">
-<div style="background:cyan;color:black;padding:8px;text-align:center">
-🤖 AI Chat
+<!-- header -->
+<div class="header">
+    <img src="logo.png" class="logo">
+    <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
-<div id="chatbox"></div>
+<!-- nội dung -->
+<div id="main" class="container"></div>
+<div class="back" id="backBtn" onclick="back()">⬅</div>
 
-<input id="userInput" placeholder="Hỏi AI...">
-<button onclick="askAI()" style="width:100%;padding:10px;background:cyan;border:none">
-Gửi
-</button>
+<!-- AI -->
+<div class="ai-box">
+ <div class="ai-header">🤖 AI Chat</div>
+ <div class="ai-chat" id="chat"></div>
+ <input id="input" placeholder="Hỏi gì đó..." onkeydown="if(event.key==='Enter') send()">
 </div>
 
 <script>
+
+<!-- HACKER TEXT -->
+<div class="credit" id="credit"></div>
+
+<script>
+
+/* ===== HACKER TEXT TYPING ===== */
+const text="🤖 Website do AI tạo ra";
+let i=0;
+function type(){
+ if(i<text.length){
+  document.getElementById("credit").innerHTML+=text.charAt(i);
+  i++;
+  setTimeout(type,50);
+ } else {
+  document.getElementById("credit").classList.add("glitch");
+ }
+}
 
 /* DATA */
 const data = {
@@ -147,84 +305,124 @@ const data = {
         "Nhóm 2": [],
         "Nhóm 3": [],
         "Nhóm 4": []
-    }
+    },
+    "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
+    "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
+    "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
 };
 
+let currentClass="";
 const main=document.getElementById("main");
 
 /* MENU */
 function showClasses(){
- main.innerHTML="";
- Object.keys(data).forEach(c=>{
-  main.innerHTML+=`<div class="card">${c}</div>`;
- });
+    main.innerHTML="";
+    document.getElementById("backBtn").style.display="none";
 
- document.querySelectorAll(".card").forEach((el,i)=>{
-  el.onclick=()=>showGroups(Object.keys(data)[i]);
- });
+    main.innerHTML += `<div class="card">📖 Giới thiệu</div>`;
+
+    Object.keys(data).forEach(c=>{
+        main.innerHTML += `<div class="card">${c}</div>`;
+    });
+
+    document.querySelectorAll(".card").forEach((el,i)=>{
+        if(i===0){
+            el.onclick=showIntro;
+        } else {
+            el.onclick=()=>showGroups(Object.keys(data)[i-1]);
+        }
+    });
+}
+
+/* INTRO */
+function showIntro(){
+    main.innerHTML = `
+    <div class="intro">
+        <h2>📖 Giới thiệu</h2>
+        <p>Website lưu trữ tài liệu lớp 11</p>
+    </div>
+    `;
+    document.getElementById("backBtn").style.display="block";
 }
 
 /* GROUP */
 function showGroups(c){
- main.innerHTML="";
- Object.keys(data[c]).forEach(g=>{
-  main.innerHTML+=`<div class="card">${g}</div>`;
- });
+    currentClass=c;
+    main.innerHTML="";
+    document.getElementById("backBtn").style.display="block";
 
- document.querySelectorAll(".card").forEach((el,i)=>{
-  el.onclick=()=>showLinks(Object.keys(data[c])[i],c);
- });
+    Object.keys(data[c]).forEach(g=>{
+        main.innerHTML+=`<div class="card">${g}</div>`;
+    });
+
+    document.querySelectorAll(".card").forEach((el,i)=>{
+        el.onclick=()=>showLinks(Object.keys(data[c])[i]);
+    });
 }
 
 /* LINK */
-function showLinks(g,c){
- main.innerHTML="";
- data[c][g].forEach(item=>{
-  main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
- });
+function showLinks(g){
+    main.innerHTML="";
+    data[currentClass][g].forEach(item=>{
+        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
+    });
 }
 
-/* ===== AI ===== */
-function askAI(){
- const input=document.getElementById("userInput");
- const msg=input.value.toLowerCase().trim();
- if(!msg) return;
-
- const chat=document.getElementById("chatbox");
- chat.innerHTML+=`<div>> ${msg}</div>`;
-
- let reply="Không hiểu 😅";
-
- Object.keys(data).forEach(c=>{
-  Object.keys(data[c]).forEach(g=>{
-   data[c][g].forEach(item=>{
-    if(msg.includes(item.name.toLowerCase())){
-     reply=`👉 Mở: <a href="${item.link}" target="_blank" style="color:cyan">${item.name}</a>`;
-    }
-   });
-  });
- });
-
- if(msg.includes("toán")){
-  reply=`👉 Gợi ý: <a href="#" target="_blank" style="color:cyan">Bài tập Toán</a>`;
- }
-
- chat.innerHTML+=`<div style="color:cyan">${reply}</div>`;
- chat.scrollTop=chat.scrollHeight;
-
- input.value="";
+/* BACK */
+function back(){
+    showClasses();
 }
+
+/* THEME */
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
+
+/* NỀN */
+const icons=["📚","✏️","📖","📝"];
+setInterval(()=>{
+ let el=document.createElement("div");
+ el.className="icon";
+ el.innerText=icons[Math.floor(Math.random()*icons.length)];
+ el.style.left=Math.random()*100+"vw";
+ el.style.animationDuration=(6+Math.random()*6)+"s";
+ bg.appendChild(el);
+ setTimeout(()=>el.remove(),10000);
+},400);
+
+/* RIPPLE */
+document.addEventListener("click",e=>{
+ let r=document.createElement("span");
+ r.style.position="fixed";
+ r.style.left=e.clientX+"px";
+ r.style.top=e.clientY+"px";
+ r.style.width="10px";
+ r.style.height="10px";
+ r.style.background="cyan";
+ r.style.borderRadius="50%";
+ r.style.transform="translate(-50%,-50%)";
+ r.style.animation="ripple 0.6s";
+ document.body.appendChild(r);
+ setTimeout(()=>r.remove(),600);
+});
 
 /* LOADING */
 let p=0;
 let load=setInterval(()=>{
- p+=10;
+ p+=Math.random()*20;
+ if(p>100)p=100;
  document.getElementById("progressBar").style.width=p+"%";
- if(p>=100){
+ if(p===100){
   clearInterval(load);
-  document.getElementById("loading").style.display="none";
+  setTimeout(()=>{
+   document.getElementById("loading").style.opacity=0;
+   setTimeout(()=>{
+    document.getElementById("loading").style.display="none";
+    type(); // chạy chữ hacker
+   },500);
+  },500);
  }
-},200);
+},300);
 
 /* START */
 showClasses();
@@ -233,3 +431,4 @@ showClasses();
 
 </body>
 </html>
+```
