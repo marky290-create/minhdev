@@ -251,7 +251,7 @@
 
 <div id="loading">
     <div style="text-align:center">
-        <img src="logo.png" class="loading-logo" alt="Logo">
+        <img src="9ae3a6a7a8ce299070df.jpg" class="loading-logo" alt="Logo">
         <h2 style="color: cyan; margin-top: 15px;">Tài liệu lớp 11</h2>
         <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
@@ -265,7 +265,7 @@
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 Chế độ tối</button>
 
 <div class="header">
-    <img src="logo.png" class="logo" alt="Logo">
+    <img src="9ae3a6a7a8ce299070df.jpg" class="logo" alt="Logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
     <p>Kho lưu trữ bài tập và đề kiểm tra trực tuyến</p>
 </div>
@@ -288,8 +288,44 @@
 const data = {
     "11A1": {
         "Nhóm 1": [
-            {name: "📚 Bài tập Toán (Số học)", link: "#"},
-            {name: "📝 Đề kiểm tra 15 phút", link: "#"}
+            {name: "VIDEO 1", link: "#"},
+            {name: "VIDEO 2       <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <p id="loadingText">Hệ thống đang khởi động...</p>
+    </div>
+</div>
+
+<div class="study-bg" id="bg"></div>
+
+<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 Chế độ tối</button>
+
+<div class="header">
+    <img src="9ae3a6a7a8ce299070df.jpg" class="logo" alt="Logo">
+    <h1>📚 TÀI LIỆU LỚP 11</h1>
+    <p>Kho lưu trữ bài tập và đề kiểm tra trực tuyến</p>
+</div>
+
+<div id="main" class="container"></div>
+<div class="back" id="backBtn" onclick="back()">⬅</div>
+
+<div class="ai-box">
+    <div class="ai-header">🤖 Trợ lý AI</div>
+    <div class="ai-chat" id="chat">
+        <div class="ai-bot">Chào bạn! Bạn cần tìm tài liệu của lớp nào?</div>
+    </div>
+    <input id="input" placeholder="Hỏi: 11A1 nhóm 1..." onkeydown="if(event.key==='Enter') send()">
+</div>
+
+<div class="credit" id="credit"></div>
+
+<script>
+/* DỮ LIỆU */
+const data = {
+    "11A1": {
+        "Nhóm 1": [
+            {name: "VIDEO 1", link: "https://www.youtube.com/watch?v=sPQXOA6pzOg&list=RDsPQXOA6pzOg&start_radio=1"},
+            {name: "VIDEO 2", link: "https://www.youtube.com/watch?v=WqVkuJehQ4w&list=RDWqVkuJehQ4w&start_radio=1"}
         ],
         "Nhóm 2": [],
         "Nhóm 3": [],
