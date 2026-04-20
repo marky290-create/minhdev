@@ -7,12 +7,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body{
- margin:0;
- font-family:'Poppins',sans-serif;
- background:#020617;
- color:white;
- overflow-x:hidden;
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #020617;
+    color: white;
+    overflow-x: hidden;
 }
 
 /* ===== LOADING ===== */
@@ -20,156 +20,128 @@ body{
  position:fixed;
  width:100%;
  height:100%;
- background:radial-gradient(circle,#020617,#000);
+ background:#020617;
  display:flex;
  justify-content:center;
  align-items:center;
+ flex-direction:column;
  z-index:9999;
- transition:0.5s;
 }
-.loading-box{text-align:center;}
-.loading-logo{
- width:80px;
+.loader{
+ width:50px;
+ height:50px;
+ border:5px solid rgba(255,255,255,0.2);
+ border-top:5px solid cyan;
  border-radius:50%;
- animation:glow 2s infinite alternate;
+ animation:spin 1s linear infinite;
 }
-@keyframes glow{
- from{box-shadow:0 0 10px cyan;}
- to{box-shadow:0 0 30px cyan;}
-}
-.progress{
- width:250px;height:8px;
- background:rgba(255,255,255,0.2);
- border-radius:10px;
- margin:15px auto;
- overflow:hidden;
-}
-.progress-bar{
- height:100%;
- width:0%;
- background:cyan;
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ===== THEME ===== */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 /* ===== HEADER ===== */
-.header{text-align:center;padding:40px;}
-.logo{width:100px;border-radius:50%;}
-
-.game-title{
- font-size:32px;
- text-shadow:0 0 10px cyan,0 0 20px cyan;
+.header {
+    text-align: center;
+    padding: 40px;
 }
-.subtitle{opacity:0.7;font-size:14px;}
+.logo {
+    width: 100px;
+    border-radius: 50%;
+}
+h1{
+ text-shadow:0 0 10px cyan;
+}
 
 /* ===== GRID ===== */
-.container{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
- gap:20px;
- padding:30px;
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+    gap: 20px;
+    padding: 30px;
 }
 
 /* ===== CARD GAME ===== */
-.card{
- position:relative;
- padding:25px;
- border-radius:15px;
- background:rgba(0,0,0,0.6);
- border:1px solid rgba(0,255,255,0.3);
- color:cyan;
- text-align:center;
- cursor:pointer;
- overflow:hidden;
- transition:0.3s;
+.card {
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    cursor: pointer;
+    background: rgba(0,0,0,0.6);
+    border:1px solid rgba(0,255,255,0.3);
+    color:cyan;
+    transition: 0.3s;
 }
-.card:hover{
- transform:translateY(-8px) scale(1.05);
- box-shadow:0 0 20px cyan;
+.card:hover {
+    transform: scale(1.1);
+    box-shadow:0 0 20px cyan;
 }
-.card::before{
- content:"";
- position:absolute;
- top:0;
- left:-100%;
- width:100%;
- height:100%;
- background:linear-gradient(120deg,transparent,rgba(0,255,255,0.4),transparent);
- transition:0.5s;
-}
-.card:hover::before{left:100%;}
 
 /* ===== INTRO ===== */
-.intro{
- max-width:700px;
- margin:auto;
- padding:20px;
- border-radius:15px;
- background:rgba(0,0,0,0.6);
- border:1px solid cyan;
- text-align:center;
+.intro {
+    max-width: 700px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: rgba(0,0,0,0.6);
+    border:1px solid cyan;
 }
 
 /* ===== LINK ===== */
-.link{
- display:block;
- margin:10px auto;
- padding:12px;
- width:250px;
- border-radius:10px;
- border:1px solid cyan;
- background:rgba(0,0,0,0.6);
- color:cyan;
- text-decoration:none;
+.link {
+    display: block;
+    padding: 12px;
+    margin: 10px auto;
+    width: 250px;
+    border-radius: 10px;
+    border:1px solid cyan;
+    background: rgba(0,0,0,0.6);
+    color: cyan;
+    text-decoration: none;
 }
 .link:hover{box-shadow:0 0 10px cyan;}
 
-/* ===== BUTTON ===== */
-.back{
- position:fixed;
- bottom:20px;
- left:20px;
- padding:10px 15px;
- border:1px solid cyan;
- background:black;
- color:cyan;
- border-radius:20px;
- cursor:pointer;
- display:none;
-}
-
-/* ===== THEME ===== */
-.theme-toggle{
- position:fixed;
- top:20px;
- right:20px;
- padding:10px;
- border-radius:20px;
- border:1px solid cyan;
- background:black;
- color:cyan;
- cursor:pointer;
-}
-
-/* ===== NỀN ICON ===== */
-.study-bg{
- position:fixed;
- width:100%;
- height:100%;
- z-index:-1;
-}
-.icon{
- position:absolute;
- opacity:0.15;
- animation:float linear infinite;
-}
-@keyframes float{
- from{transform:translateY(100vh);}
- to{transform:translateY(-10vh);}
+/* ===== BACK ===== */
+.back {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px;
+    background: cyan;
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+    display: none;
 }
 
 /* ===== RIPPLE ===== */
 @keyframes ripple{
- from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
- to{transform:translate(-50%,-50%) scale(15);opacity:0;}
+ from{transform:scale(1);opacity:0.7;}
+ to{transform:scale(10);opacity:0;}
+}
+
+/* ===== NỀN ===== */
+.study-bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.icon {
+    position: absolute;
+    opacity: 0.15;
+    animation: float linear infinite;
+}
+@keyframes float {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
 }
 </style>
 </head>
@@ -178,14 +150,8 @@ body{
 
 <!-- LOADING -->
 <div id="loading">
- <div class="loading-box">
-  <img src="logo.png" class="loading-logo">
-  <h2>Tài liệu lớp 11</h2>
-  <div class="progress">
-   <div class="progress-bar" id="progressBar"></div>
-  </div>
-  <p id="loadingText">Đang tải...</p>
- </div>
+ <div class="loader"></div>
+ <p>Đang tải...</p>
 </div>
 
 <div class="study-bg" id="bg"></div>
@@ -193,18 +159,17 @@ body{
 <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
 
 <div class="header">
- <img src="logo.png" class="logo">
- <h1 class="game-title">TÀI LIỆU LỚP 11</h1>
- <p class="subtitle">📚 Hệ thống tài liệu</p>
+    <img src="logo.png" class="logo">
+    <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
 <div id="main" class="container"></div>
-<div class="back" id="backBtn" onclick="showClasses()">⬅</div>
+<div class="back" id="backBtn" onclick="back()">⬅</div>
 
 <script>
 
-/* DATA */
-const data={
+/* DATA giữ nguyên */
+const data = {
  "11A1":{"Nhóm 1":[{name:"Toán",link:"#"}],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
  "11A2":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
  "11A3":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
@@ -216,7 +181,11 @@ const main=document.getElementById("main");
 
 /* MENU */
 function showClasses(){
- main.innerHTML=`<div class="card">📖 Giới thiệu</div>`;
+ main.innerHTML="";
+ backBtn.style.display="none";
+
+ main.innerHTML+=`<div class="card">📖 Giới thiệu</div>`;
+
  Object.keys(data).forEach(c=>{
   main.innerHTML+=`<div class="card">${c}</div>`;
  });
@@ -225,13 +194,11 @@ function showClasses(){
   if(i==0) el.onclick=showIntro;
   else el.onclick=()=>showGroups(Object.keys(data)[i-1]);
  });
-
- backBtn.style.display="none";
 }
 
 /* INTRO */
 function showIntro(){
- main.innerHTML=`<div class="intro">Website lưu trữ tài liệu lớp 11</div>`;
+ main.innerHTML=`<div class="intro">Website tài liệu lớp 11</div>`;
  backBtn.style.display="block";
 }
 
@@ -239,6 +206,8 @@ function showIntro(){
 function showGroups(c){
  currentClass=c;
  main.innerHTML="";
+ backBtn.style.display="block";
+
  Object.keys(data[c]).forEach(g=>{
   main.innerHTML+=`<div class="card">${g}</div>`;
  });
@@ -246,8 +215,6 @@ function showGroups(c){
  document.querySelectorAll(".card").forEach((el,i)=>{
   el.onclick=()=>showLinks(Object.keys(data[c])[i]);
  });
-
- backBtn.style.display="block";
 }
 
 /* LINKS */
@@ -257,6 +224,9 @@ function showLinks(g){
   main.innerHTML+=`<a class="link" href="${i.link}" target="_blank">${i.name}</a>`;
  });
 }
+
+/* BACK */
+function back(){showClasses();}
 
 /* THEME */
 function toggleTheme(){
@@ -285,28 +255,18 @@ document.addEventListener("click",e=>{
  r.style.height="10px";
  r.style.background="cyan";
  r.style.borderRadius="50%";
- r.style.transform="translate(-50%,-50%)";
  r.style.animation="ripple 0.6s";
  document.body.appendChild(r);
  setTimeout(()=>r.remove(),600);
 });
 
 /* LOADING */
-let p=0;
-let load=setInterval(()=>{
- p+=Math.random()*20;
- if(p>100)p=100;
- document.getElementById("progressBar").style.width=p+"%";
- if(p==100){
-  clearInterval(load);
-  setTimeout(()=>{
-   document.getElementById("loading").style.opacity=0;
-   setTimeout(()=>document.getElementById("loading").style.display="none",500);
-  },500);
- }
-},300);
+window.onload=()=>{
+ setTimeout(()=>{
+  document.getElementById("loading").style.display="none";
+ },800);
+};
 
-/* LOAD */
 showClasses();
 
 </script>
