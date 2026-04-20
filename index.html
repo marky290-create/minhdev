@@ -1,475 +1,460 @@
-```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<title>Tài liệu lớp 11</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài liệu lớp 11</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: #020617;
+            color: white;
+            overflow-x: hidden;
+            transition: 0.3s;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+        /* ===== LOADING ===== */
+        #loading {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #020617, #000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: 0.5s;
+        }
+        .loading-logo {
+            width: 80px;
+            border-radius: 50%;
+            animation: glow 2s infinite alternate;
+        }
+        @keyframes glow {
+            from { box-shadow: 0 0 10px cyan; }
+            to { box-shadow: 0 0 30px cyan; }
+        }
+        .progress {
+            width: 250px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            margin: 10px auto;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: cyan;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #020617;
-    color: white;
-    overflow-x: hidden;
-    transition: 0.3s;
-}
+        /* ===== HACKER TEXT ===== */
+        .credit {
+            position: fixed;
+            bottom: 10px;
+            right: 15px;
+            font-size: 13px;
+            color: #00ffff;
+            text-shadow: 0 0 5px #00ffff, 0 0 15px #00ffff;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .credit.glitch { animation: glitch 1s infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-1px, 1px); }
+            40% { transform: translate(1px, -1px); }
+            60% { transform: translate(-1px, -1px); }
+            80% { transform: translate(1px, 1px); }
+            100% { transform: translate(0); }
+        }
 
-/* ===== LOADING ===== */
-#loading{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:radial-gradient(circle,#020617,#000);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    transition:0.5s;
-}
-.loading-logo{
-    width:80px;
-    border-radius:50%;
-    animation:glow 2s infinite alternate;
-}
-@keyframes glow{
-    from{box-shadow:0 0 10px cyan;}
-    to{box-shadow:0 0 30px cyan;}
-}
-.progress{
-    width:250px;
-    height:8px;
-    background:rgba(255,255,255,0.2);
-    border-radius:10px;
-    margin:10px auto;
-    overflow:hidden;
-}
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:cyan;
-}
+        /* ===== THEME BUTTON ===== */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid cyan;
+            background: rgba(0,255,255,0.1);
+            color: cyan;
+            cursor: pointer;
+            z-index: 1000;
+        }
 
-/* ===== HACKER TEXT ===== */
-.credit{
- position:fixed;
- bottom:10px;
- right:15px;
- font-size:13px;
- color:#00ffff;
- text-shadow:0 0 5px #00ffff, 0 0 15px #00ffff;
- pointer-events:none;
-}
+        /* ===== LIGHT MODE ===== */
+        body.light {
+            background: linear-gradient(135deg, #e0f2fe, #f8fafc);
+            color: #0f172a;
+        }
+        body.light .card, body.light .intro {
+            background: white;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+        }
+        body.light .link {
+            background: #e2e8f0;
+            color: #2563eb;
+        }
 
-/* glitch */
-.credit.glitch{
- animation:glitch 1s infinite;
-}
-@keyframes glitch{
- 0%{transform:translate(0);}
- 20%{transform:translate(-1px,1px);}
- 40%{transform:translate(1px,-1px);}
- 60%{transform:translate(-1px,-1px);}
- 80%{transform:translate(1px,1px);}
- 100%{transform:translate(0);}
-}
+        /* ===== NỀN ===== */
+        .study-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .icon {
+            position: absolute;
+            font-size: 26px;
+            opacity: 0.15;
+            animation: float linear infinite;
+        }
+        @keyframes float {
+            from { transform: translateY(100vh) rotate(0deg); }
+            to { transform: translateY(-10vh) rotate(360deg); }
+        }
 
-/* ===== THEME BUTTON ===== */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
-}
+        /* ===== HEADER ===== */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .logo { width: 100px; border-radius: 50%; }
 
-/* ===== LIGHT MODE ===== */
-body.light {
-    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
-    color: #0f172a;
-}
+        /* ===== GRID ===== */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
 
-body.light .card,
-body.light .intro {
-    background: white;
-    color: black;
-}
+        /* ===== CARD ===== */
+        .card {
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.08);
+            transition: 0.3s;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 15px cyan;
+            border-color: cyan;
+        }
 
-body.light .link {
-    background: #e2e8f0;
-    color: #2563eb;
-}
+        .intro {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            text-align: center;
+        }
 
-/* ===== NỀN ===== */
-.study-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
-}
+        .link {
+            display: block;
+            padding: 15px;
+            margin: 10px auto;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            color: cyan;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .link:hover { border-color: cyan; background: rgba(0, 255, 255, 0.1); }
 
-.icon {
-    position: absolute;
-    font-size: 26px;
-    opacity: 0.15;
-    animation: float linear infinite;
-}
+        .back {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 45px;
+            height: 45px;
+            line-height: 45px;
+            background: cyan;
+            color: black;
+            border-radius: 50%;
+            text-align: center;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+            z-index: 100;
+        }
 
-@keyframes float {
-    from { transform: translateY(100vh) rotate(0deg); }
-    to { transform: translateY(-10vh) rotate(360deg); }
-}
+        /* AI BOX */
+        .ai-box {
+            position: fixed;
+            bottom: 60px;
+            right: 20px;
+            width: 280px;
+            background: rgba(1, 10, 30, 0.9);
+            border: 1px solid cyan;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+        .ai-header { background: cyan; color: black; padding: 10px; text-align: center; font-weight: bold; }
+        .ai-chat { height: 200px; overflow-y: auto; padding: 10px; font-size: 13px; }
+        .ai-user { color: #fff; margin-bottom: 5px; text-align: right; }
+        .ai-bot { color: cyan; margin-bottom: 10px; }
+        #input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            background: #020617;
+            color: white;
+            outline: none;
+        }
 
-/* ===== HEADER ===== */
-.header {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.logo {
-    width: 100px;
-    border-radius: 50%;
-}
-
-/* ===== GRID ===== */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 20px;
-    padding: 30px;
-}
-
-/* ===== CARD ===== */
-.card {
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    background: rgba(255,255,255,0.08);
-    transition: 0.3s;
-    border:1px solid rgba(0,255,255,0.2);
-}
-
-.card:hover {
-    transform: scale(1.1);
-    box-shadow:0 0 15px cyan;
-}
-
-/* ===== INTRO ===== */
-.intro {
-    max-width: 800px;
-    margin: auto;
-    padding: 25px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    text-align: center;
-}
-
-/* ===== LINK ===== */
-.link {
-    display: block;
-    padding: 12px;
-    margin: 10px auto;
-    width: 250px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.1);
-    text-decoration: none;
-    color: cyan;
-}
-
-/* ===== BACK ===== */
-.back {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 15px;
-    background: cyan;
-    color: black;
-    border-radius: 20px;
-    cursor: pointer;
-    display: none;
-}
-
-
-/* AI */
-.ai-box{
- position:fixed;
- bottom:20px;
- right:20px;
- width:260px;
- background:rgba(0,0,0,0.7);
- border:1px solid cyan;
- border-radius:10px;
- overflow:hidden;
-}
-.ai-header{
- background:cyan;
- color:black;
- padding:8px;
- text-align:center;
-}
-.ai-chat{
- height:180px;
- overflow:auto;
- padding:10px;
- font-size:13px;
-}
-.ai-user{color:white;}
-.ai-bot{color:cyan;}
-#input{
- width:100%;
- padding:8px;
- border:none;
- outline:none;
- background:#020617;
- color:white;
-}
-
-
-/* ===== RIPPLE ===== */
-@keyframes ripple{
- from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
- to{transform:translate(-50%,-50%) scale(12);opacity:0;}
-}
-</style>
+        /* RIPPLE */
+        .ripple-effect {
+            position: fixed;
+            background: cyan;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            animation: ripple 0.6s linear;
+        }
+        @keyframes ripple {
+            from { width: 0px; height: 0px; opacity: 0.5; }
+            to { width: 100px; height: 100px; opacity: 0; }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- LOADING -->
 <div id="loading">
     <div style="text-align:center">
-        <img src="logo.png" class="loading-logo">
-        <h2>Tài liệu lớp 11</h2>
+        <div class="loading-logo" style="background: cyan; height: 80px; width: 80px; margin: auto;"></div>
+        <h2 style="color: cyan; margin-top: 15px;">Tài liệu lớp 11</h2>
         <div class="progress">
             <div class="progress-bar" id="progressBar"></div>
         </div>
-        <p id="loadingText">Đang tải...</p>
+        <p id="loadingText">Hệ thống đang khởi động...</p>
     </div>
 </div>
 
-<!-- nền -->
 <div class="study-bg" id="bg"></div>
 
-<!-- nút theme -->
-<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">🌙 Chế độ tối</button>
 
-<!-- header -->
 <div class="header">
-    <img src="logo.png" class="logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
+    <p>Kho lưu trữ bài tập và đề kiểm tra trực tuyến</p>
 </div>
 
-<!-- nội dung -->
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
 
-<!-- AI -->
 <div class="ai-box">
- <div class="ai-header">🤖 AI Chat</div>
- <div class="ai-chat" id="chat"></div>
- <input id="input" placeholder="Hỏi gì đó..." onkeydown="if(event.key==='Enter') send()">
+    <div class="ai-header">🤖 Trợ lý AI</div>
+    <div class="ai-chat" id="chat">
+        <div class="ai-bot">Chào bạn! Bạn cần tìm tài liệu của lớp nào?</div>
+    </div>
+    <input id="input" placeholder="Hỏi: 11A1 nhóm 1..." onkeydown="if(event.key==='Enter') send()">
 </div>
 
-<script>
-
-
-<!-- HACKER TEXT -->
 <div class="credit" id="credit"></div>
 
 <script>
-
-/* ===== HACKER TEXT TYPING ===== */
-const text="🤖 Website do AI tạo ra";
-let i=0;
-function type(){
- if(i<text.length){
-  document.getElementById("credit").innerHTML+=text.charAt(i);
-  i++;
-  setTimeout(type,50);
- } else {
-  document.getElementById("credit").classList.add("glitch");
- }
-}
-
 /* DATA */
 const data = {
     "11A1": {
         "Nhóm 1": [
-            {name:"Bài tập Toán", link:"#"},
-            {name:"Đề kiểm tra", link:"#"}
+            {name: "📚 Bài tập Toán (Số học)", link: "#"},
+            {name: "📝 Đề kiểm tra 15 phút", link: "#"}
         ],
         "Nhóm 2": [],
         "Nhóm 3": [],
         "Nhóm 4": []
     },
-    "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
+    "11A2": {"Nhóm 1": [], "Nhóm 2": [], "Nhóm 3": [], "Nhóm 4": []},
+    "11A3": {"Nhóm 1": [], "Nhóm 2": [], "Nhóm 3": [], "Nhóm 4": []},
+    "11A6": {"Nhóm 1": [], "Nhóm 2": [], "Nhóm 3": [], "Nhóm 4": []}
 };
 
-let currentClass="";
-const main=document.getElementById("main");
+let currentState = "home"; // home, groups, links
+let currentClass = "";
+let currentGroup = "";
+const main = document.getElementById("main");
 
-/* MENU */
-function showClasses(){
-    main.innerHTML="";
-    document.getElementById("backBtn").style.display="none";
+/* MENU TRANG CHỦ */
+function showClasses() {
+    currentState = "home";
+    main.innerHTML = "";
+    document.getElementById("backBtn").style.display = "none";
 
-    main.innerHTML += `<div class="card">📖 Giới thiệu</div>`;
+    main.innerHTML += `<div class="card" onclick="showIntro()">📖 Giới thiệu website</div>`;
 
-    Object.keys(data).forEach(c=>{
-        main.innerHTML += `<div class="card">${c}</div>`;
-    });
-
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        if(i===0){
-            el.onclick=showIntro;
-        } else {
-            el.onclick=()=>showGroups(Object.keys(data)[i-1]);
-        }
+    Object.keys(data).forEach(c => {
+        main.innerHTML += `<div class="card" onclick="showGroups('${c}')">Lớp ${c}</div>`;
     });
 }
 
-/* INTRO */
-function showIntro(){
+function showIntro() {
+    currentState = "groups";
     main.innerHTML = `
     <div class="intro">
         <h2>📖 Giới thiệu</h2>
-        <p>Website lưu trữ tài liệu lớp 11</p>
-    </div>
-    `;
-    document.getElementById("backBtn").style.display="block";
+        <p>Đây là website lưu trữ tài liệu học tập dành riêng cho học sinh khối 11. Các tài liệu được phân loại theo lớp và nhóm để dễ dàng tra cứu.</p>
+    </div>`;
+    document.getElementById("backBtn").style.display = "block";
 }
 
-/* GROUP */
-function showGroups(c){
-    currentClass=c;
-    main.innerHTML="";
-    document.getElementById("backBtn").style.display="block";
+/* HIỂN THỊ NHÓM */
+function showGroups(c) {
+    currentState = "groups";
+    currentClass = c;
+    main.innerHTML = "";
+    document.getElementById("backBtn").style.display = "block";
 
-    Object.keys(data[c]).forEach(g=>{
-        main.innerHTML+=`<div class="card">${g}</div>`;
-    });
-
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        el.onclick=()=>showLinks(Object.keys(data[c])[i]);
+    Object.keys(data[c]).forEach(g => {
+        main.innerHTML += `<div class="card" onclick="showLinks('${g}')">${g}</div>`;
     });
 }
 
-/* LINK */
-function showLinks(g){
-    main.innerHTML="";
-    data[currentClass][g].forEach(item=>{
-        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
-    });
+/* HIỂN THỊ LINK TÀI LIỆU */
+function showLinks(g) {
+    currentState = "links";
+    currentGroup = g;
+    main.innerHTML = "";
+    document.getElementById("backBtn").style.display = "block";
+
+    const links = data[currentClass][g];
+    if (links.length === 0) {
+        main.innerHTML = `<div class="intro"><h3>Chưa có dữ liệu cho ${g}</h3></div>`;
+    } else {
+        links.forEach(item => {
+            main.innerHTML += `<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
+        });
+    }
 }
 
-/* BACK */
-function back(){
-    showClasses();
+/* NÚT QUAY LẠI THÔNG MINH */
+function back() {
+    if (currentState === "links") {
+        showGroups(currentClass);
+    } else {
+        showClasses();
+    }
 }
 
-/* AI SMART */
-function normalize(t){
- return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+/* AI CHAT */
+function normalize(t) {
+    return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-function send(){
- let input=document.getElementById("input");
- let text=input.value.trim();
- if(!text) return;
+function send() {
+    let input = document.getElementById("input");
+    let text = input.value.trim();
+    if (!text) return;
 
- let chat=document.getElementById("chat");
- chat.innerHTML+=`<div class="ai-user">👤 ${text}</div>`;
+    let chat = document.getElementById("chat");
+    chat.innerHTML += `<div class="ai-user">You: ${text}</div>`;
 
- let t=normalize(text);
- let foundClass=Object.keys(data).find(c=>t.includes(c.toLowerCase()));
- let foundGroup=foundClass && Object.keys(data[foundClass]).find(g=>t.includes(normalize(g)));
+    let t = normalize(text);
+    let foundClass = Object.keys(data).find(c => t.includes(c.toLowerCase()));
+    let foundGroup = foundClass && Object.keys(data[foundClass]).find(g => t.includes(normalize(g)));
 
- let reply="🤖 Không hiểu 😅";
+    let reply = "🤖 Xin lỗi, mình không tìm thấy lớp hoặc nhóm này. Bạn thử nhập '11A1 nhóm 1' nhé!";
 
- if(foundClass && foundGroup){
-  let links=data[foundClass][foundGroup];
-  if(links.length===0){
-   reply="Nhóm chưa có tài liệu";
-  }else{
-   reply=`📚 ${foundClass} - ${foundGroup}<br>`;
-   links.forEach(l=>{
-    reply+=`👉 <a href="${l.link}" target="_blank" style="color:cyan">${l.name}</a><br>`;
-   });
-  }
- }else{
-  reply="Thử hỏi: 11A1 nhóm 1";
- }
+    if (foundClass && foundGroup) {
+        let links = data[foundClass][foundGroup];
+        if (links.length === 0) {
+            reply = `Tài liệu của ${foundClass} - ${foundGroup} đang được cập nhật.`;
+        } else {
+            reply = `📚 Tài liệu ${foundClass} - ${foundGroup}:<br>`;
+            links.forEach(l => {
+                reply += `👉 <a href="${l.link}" target="_blank" style="color:cyan">${l.name}</a><br>`;
+            });
+        }
+    }
 
- chat.innerHTML+=`<div class="ai-bot">${reply}</div>`;
- chat.scrollTop=chat.scrollHeight;
- input.value="";
+    chat.innerHTML += `<div class="ai-bot">${reply}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+    input.value = "";
 }
 
 /* THEME */
-function toggleTheme(){
-    document.body.classList.toggle("light");
+function toggleTheme() {
+    const isLight = document.body.classList.toggle("light");
+    const btn = document.getElementById("themeBtn");
+    btn.innerText = isLight ? "☀️ Chế độ sáng" : "🌙 Chế độ tối";
 }
 
-/* NỀN */
-const icons=["📚","✏️","📖","📝"];
-setInterval(()=>{
- let el=document.createElement("div");
- el.className="icon";
- el.innerText=icons[Math.floor(Math.random()*icons.length)];
- el.style.left=Math.random()*100+"vw";
- el.style.animationDuration=(6+Math.random()*6)+"s";
- bg.appendChild(el);
- setTimeout(()=>el.remove(),10000);
-},400);
+/* NỀN TRÔI NỔI */
+const icons = ["📚", "✏️", "📖", "📝", "🧪", "📐"];
+setInterval(() => {
+    let el = document.createElement("div");
+    el.className = "icon";
+    el.innerText = icons[Math.floor(Math.random() * icons.length)];
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.animationDuration = (6 + Math.random() * 6) + "s";
+    document.getElementById("bg").appendChild(el);
+    setTimeout(() => el.remove(), 10000);
+}, 600);
 
-/* RIPPLE */
-document.addEventListener("click",e=>{
- let r=document.createElement("span");
- r.style.position="fixed";
- r.style.left=e.clientX+"px";
- r.style.top=e.clientY+"px";
- r.style.width="10px";
- r.style.height="10px";
- r.style.background="cyan";
- r.style.borderRadius="50%";
- r.style.transform="translate(-50%,-50%)";
- r.style.animation="ripple 0.6s";
- document.body.appendChild(r);
- setTimeout(()=>r.remove(),600);
+/* HIỆU ỨNG CLICK */
+document.addEventListener("click", e => {
+    let r = document.createElement("div");
+    r.className = "ripple-effect";
+    r.style.left = e.clientX + "px";
+    r.style.top = e.clientY + "px";
+    document.body.appendChild(r);
+    setTimeout(() => r.remove(), 600);
 });
 
-/* LOADING */
-let p=0;
-let load=setInterval(()=>{
- p+=Math.random()*20;
- if(p>100)p=100;
- document.getElementById("progressBar").style.width=p+"%";
- if(p===100){
-  clearInterval(load);
-  setTimeout(()=>{
-   document.getElementById("loading").style.opacity=0;
-   setTimeout(()=>{
-    document.getElementById("loading").style.display="none";
-    type(); // chạy chữ hacker
-   },500);
-  },500);
- }
-},300);
+/* HACKER TYPING */
+const creditText = "🤖 Website được tối ưu bởi AI Core";
+let charIndex = 0;
+function typeEffect() {
+    if (charIndex < creditText.length) {
+        document.getElementById("credit").innerHTML += creditText.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeEffect, 70);
+    } else {
+        document.getElementById("credit").classList.add("glitch");
+    }
+}
 
-/* START */
+/* LOADING SYSTEM */
+let progress = 0;
+let loadInterval = setInterval(() => {
+    progress += Math.random() * 15;
+    if (progress > 100) progress = 100;
+    document.getElementById("progressBar").style.width = progress + "%";
+    
+    if (progress === 100) {
+        clearInterval(loadInterval);
+        setTimeout(() => {
+            document.getElementById("loading").style.opacity = 0;
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                typeEffect();
+            }, 500);
+        }, 500);
+    }
+}, 200);
+
+/* INIT */
 showClasses();
-
 </script>
 
 </body>
 </html>
-```
