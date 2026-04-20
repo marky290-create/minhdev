@@ -196,40 +196,6 @@ body.light .link {
     display: none;
 }
 
-/* AI */
-.ai-box{
- position:fixed;
- bottom:20px;
- right:20px;
- width:260px;
- background:rgba(0,0,0,0.7);
- border:1px solid cyan;
- border-radius:10px;
- overflow:hidden;
-}
-.ai-header{
- background:cyan;
- color:black;
- padding:8px;
- text-align:center;
-}
-.ai-chat{
- height:180px;
- overflow:auto;
- padding:10px;
- font-size:13px;
-}
-.ai-user{color:white;}
-.ai-bot{color:cyan;}
-#input{
- width:100%;
- padding:8px;
- border:none;
- outline:none;
- background:#020617;
- color:white;
-}
-
 /* ===== RIPPLE ===== */
 @keyframes ripple{
  from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
@@ -267,15 +233,6 @@ body.light .link {
 <!-- nội dung -->
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
-
-<!-- AI -->
-<div class="ai-box">
- <div class="ai-header">🤖 AI Chat</div>
- <div class="ai-chat" id="chat"></div>
- <input id="input" placeholder="Hỏi gì đó..." onkeydown="if(event.key==='Enter') send()">
-</div>
-
-<script>
 
 <!-- HACKER TEXT -->
 <div class="credit" id="credit"></div>
