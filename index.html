@@ -43,7 +43,6 @@ body {
     background:rgba(255,255,255,0.2);
     border-radius:10px;
     margin:10px auto;
-    overflow:hidden;
 }
 .progress-bar{
     height:100%;
@@ -80,25 +79,12 @@ body.light .link {
     color: #2563eb;
 }
 
-/* ===== NỀN HỌC TẬP ===== */
+/* ===== NỀN ICON ===== */
 .study-bg {
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: -1;
-    overflow: hidden;
-}
-
-.icon {
-    position: absolute;
-    font-size: 26px;
-    opacity: 0.15;
-    animation: float linear infinite;
-}
-
-@keyframes float {
-    from { transform: translateY(100vh) rotate(0deg); }
-    to { transform: translateY(-10vh) rotate(360deg); }
+    z-index: -2;
 }
 
 /* ===== HEADER ===== */
@@ -120,7 +106,7 @@ body.light .link {
     padding: 30px;
 }
 
-/* ===== CARD (UPGRADE) ===== */
+/* ===== CARD (AAA UPGRADE) ===== */
 .card {
     padding: 25px;
     border-radius: 20px;
@@ -129,11 +115,12 @@ body.light .link {
     background: rgba(255,255,255,0.08);
     transition: 0.3s;
     border:1px solid rgba(0,255,255,0.2);
+    box-shadow: inset 0 0 10px rgba(0,255,255,0.2);
 }
 
 .card:hover {
     transform: scale(1.1);
-    box-shadow:0 0 15px cyan;
+    box-shadow:0 0 20px cyan;
 }
 
 /* ===== INTRO ===== */
@@ -171,6 +158,15 @@ body.light .link {
     display: none;
 }
 
+/* ===== FADE ===== */
+.fade{
+    animation:fadeIn 0.4s;
+}
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
 /* ===== RIPPLE ===== */
 @keyframes ripple{
  from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
@@ -193,25 +189,57 @@ body.light .link {
     </div>
 </div>
 
-<!-- nền -->
 <div class="study-bg" id="bg"></div>
 
-<!-- nút theme -->
 <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
 
-<!-- header -->
 <div class="header">
     <img src="logo.png" class="logo">
     <h1>📚 TÀI LIỆU LỚP 11</h1>
 </div>
 
-<!-- nội dung -->
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
 
 <script>
 
-/* DATA */
+/* ===== AAA PARTICLE ===== */
+const canvas = document.createElement("canvas");
+document.body.appendChild(canvas);
+canvas.style.position="fixed";
+canvas.style.top=0;
+canvas.style.left=0;
+canvas.style.zIndex=-1;
+
+const ctx = canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+ particles.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  dx:(Math.random()-0.5)*0.6,
+  dy:(Math.random()-0.5)*0.6
+ });
+}
+
+function animate(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="cyan";
+ particles.forEach(p=>{
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,2,0,Math.PI*2);
+  ctx.fill();
+  p.x+=p.dx;
+  p.y+=p.dy;
+ });
+ requestAnimationFrame(animate);
+}
+animate();
+
+/* DATA giữ nguyên */
 const data = {
     "11A1": {
         "Nhóm 1": [
@@ -230,81 +258,52 @@ const data = {
 let currentClass="";
 const main=document.getElementById("main");
 
-/* MENU */
 function showClasses(){
+    main.classList.add("fade");
     main.innerHTML="";
-    document.getElementById("backBtn").style.display="none";
-
+    backBtn.style.display="none";
     main.innerHTML += `<div class="card">📖 Giới thiệu</div>`;
-
     Object.keys(data).forEach(c=>{
         main.innerHTML += `<div class="card">${c}</div>`;
     });
-
     document.querySelectorAll(".card").forEach((el,i)=>{
-        if(i===0){
-            el.onclick=showIntro;
-        } else {
-            el.onclick=()=>showGroups(Object.keys(data)[i-1]);
-        }
+        if(i===0) el.onclick=showIntro;
+        else el.onclick=()=>showGroups(Object.keys(data)[i-1]);
     });
 }
 
-/* INTRO */
 function showIntro(){
-    main.innerHTML = `
-    <div class="intro">
-        <h2>📖 Giới thiệu</h2>
-        <p>Website lưu trữ tài liệu lớp 11</p>
-    </div>
-    `;
-    document.getElementById("backBtn").style.display="block";
+    main.classList.add("fade");
+    main.innerHTML=`<div class="intro">Website tài liệu lớp 11</div>`;
+    backBtn.style.display="block";
 }
 
-/* GROUP */
 function showGroups(c){
+    main.classList.add("fade");
     currentClass=c;
     main.innerHTML="";
-    document.getElementById("backBtn").style.display="block";
-
+    backBtn.style.display="block";
     Object.keys(data[c]).forEach(g=>{
         main.innerHTML+=`<div class="card">${g}</div>`;
     });
-
     document.querySelectorAll(".card").forEach((el,i)=>{
         el.onclick=()=>showLinks(Object.keys(data[c])[i]);
     });
 }
 
-/* LINK */
 function showLinks(g){
+    main.classList.add("fade");
     main.innerHTML="";
     data[currentClass][g].forEach(item=>{
         main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
     });
 }
 
-/* BACK */
-function back(){
-    showClasses();
-}
+function back(){ showClasses(); }
 
-/* THEME */
 function toggleTheme(){
     document.body.classList.toggle("light");
 }
-
-/* NỀN */
-const icons=["📚","✏️","📖","📝"];
-setInterval(()=>{
- let el=document.createElement("div");
- el.className="icon";
- el.innerText=icons[Math.floor(Math.random()*icons.length)];
- el.style.left=Math.random()*100+"vw";
- el.style.animationDuration=(6+Math.random()*6)+"s";
- bg.appendChild(el);
- setTimeout(()=>el.remove(),10000);
-},400);
 
 /* RIPPLE */
 document.addEventListener("click",e=>{
@@ -322,17 +321,27 @@ document.addEventListener("click",e=>{
  setTimeout(()=>r.remove(),600);
 });
 
+/* HOVER AAA */
+document.addEventListener("mousemove", e=>{
+ document.querySelectorAll(".card").forEach(card=>{
+  const rect=card.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
+  card.style.background=`radial-gradient(circle at ${x}px ${y}px, rgba(0,255,255,0.25), rgba(255,255,255,0.05))`;
+ });
+});
+
 /* LOADING */
 let p=0;
 let load=setInterval(()=>{
  p+=Math.random()*20;
  if(p>100)p=100;
- document.getElementById("progressBar").style.width=p+"%";
+ progressBar.style.width=p+"%";
  if(p===100){
   clearInterval(load);
   setTimeout(()=>{
-   document.getElementById("loading").style.opacity=0;
-   setTimeout(()=>document.getElementById("loading").style.display="none",500);
+   loading.style.opacity=0;
+   setTimeout(()=>loading.style.display="none",500);
   },500);
  }
 },300);
