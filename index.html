@@ -1,180 +1,170 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Tài liệu lớp 11</title>
+<title>FINAL BOSS UI - Tài liệu 11</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #020617;
-    color: white;
-    overflow-x: hidden;
-    transition: 0.3s;
+body{
+ margin:0;
+ font-family:Poppins;
+ background:#020617;
+ color:white;
+ overflow:hidden;
+ cursor:none;
 }
 
 /* ===== LOADING ===== */
 #loading{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:radial-gradient(circle,#020617,#000);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    transition:0.5s;
+ position:fixed;
+ width:100%;
+ height:100%;
+ background:#000;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ flex-direction:column;
+ z-index:9999;
 }
-.loading-logo{
-    width:80px;
-    border-radius:50%;
-    animation:glow 2s infinite alternate;
+.loader{
+ width:60px;
+ height:60px;
+ border:5px solid rgba(255,255,255,0.2);
+ border-top:5px solid cyan;
+ border-radius:50%;
+ animation:spin 1s linear infinite;
 }
-@keyframes glow{
-    from{box-shadow:0 0 10px cyan;}
-    to{box-shadow:0 0 30px cyan;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ===== CURSOR ===== */
+.cursor{
+ position:fixed;
+ width:15px;
+ height:15px;
+ background:cyan;
+ border-radius:50%;
+ pointer-events:none;
+ z-index:9999;
+ box-shadow:0 0 15px cyan,0 0 30px cyan;
+ transform:translate(-50%,-50%);
 }
-.progress{
-    width:250px;
-    height:8px;
-    background:rgba(255,255,255,0.2);
-    border-radius:10px;
-    margin:10px auto;
-    overflow:hidden;
-}
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:cyan;
+.cursor-ring{
+ position:fixed;
+ width:40px;
+ height:40px;
+ border:2px solid cyan;
+ border-radius:50%;
+ pointer-events:none;
+ z-index:9998;
+ transform:translate(-50%,-50%);
 }
 
-/* ===== THEME BUTTON ===== */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
+/* ===== SPOTLIGHT ===== */
+.spotlight{
+ position:fixed;
+ width:100%;
+ height:100%;
+ pointer-events:none;
+ z-index:-1;
 }
 
-/* ===== LIGHT MODE ===== */
-body.light {
-    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
-    color: #0f172a;
+/* ===== PARTICLE ===== */
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:-2;
 }
 
-body.light .card,
-body.light .intro {
-    background: white;
-    color: black;
+/* ===== LAYOUT ===== */
+.app{
+ display:flex;
+ height:100vh;
 }
 
-body.light .link {
-    background: #e2e8f0;
-    color: #2563eb;
+/* ===== SIDEBAR ===== */
+.sidebar{
+ width:220px;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(10px);
+ border-right:1px solid rgba(0,255,255,0.2);
+ padding:20px;
+}
+.sidebar h2{
+ text-align:center;
+ color:cyan;
+ text-shadow:0 0 10px cyan;
+}
+.menu-item{
+ padding:12px;
+ margin:10px 0;
+ border-radius:10px;
+ cursor:pointer;
+ transition:0.3s;
+}
+.menu-item:hover{
+ box-shadow:0 0 15px cyan;
+ transform:translateX(5px);
 }
 
-/* ===== NỀN HỌC TẬP ===== */
-.study-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    overflow: hidden;
+/* ===== MAIN ===== */
+.main{
+ flex:1;
+ padding:30px;
+ overflow:auto;
+ transition:0.2s;
 }
 
-.icon {
-    position: absolute;
-    font-size: 26px;
-    opacity: 0.15;
-    animation: float linear infinite;
+/* ===== PANEL ===== */
+.panel{
+ background:rgba(255,255,255,0.05);
+ backdrop-filter:blur(15px);
+ border:1px solid rgba(0,255,255,0.2);
+ border-radius:15px;
+ padding:20px;
+ animation:fade 0.5s;
+}
+@keyframes fade{
+ from{opacity:0; transform:translateY(10px);}
+ to{opacity:1; transform:translateY(0);}
 }
 
-@keyframes float {
-    from { transform: translateY(100vh) rotate(0deg); }
-    to { transform: translateY(-10vh) rotate(360deg); }
+/* ===== CARD ===== */
+.card{
+ padding:20px;
+ margin:10px;
+ display:inline-block;
+ border-radius:12px;
+ border:1px solid rgba(0,255,255,0.2);
+ cursor:pointer;
+ transition:0.3s;
 }
-
-/* ===== HEADER ===== */
-.header {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.logo {
-    width: 100px;
-    border-radius: 50%;
-}
-
-/* ===== GRID ===== */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 20px;
-    padding: 30px;
-}
-
-/* ===== CARD (UPGRADE) ===== */
-.card {
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    background: rgba(255,255,255,0.08);
-    transition: 0.3s;
-    border:1px solid rgba(0,255,255,0.2);
-}
-
-.card:hover {
-    transform: scale(1.1);
-    box-shadow:0 0 15px cyan;
-}
-
-/* ===== INTRO ===== */
-.intro {
-    max-width: 800px;
-    margin: auto;
-    padding: 25px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    text-align: center;
+.card:hover{
+ transform:scale(1.05);
+ box-shadow:0 0 20px cyan;
 }
 
 /* ===== LINK ===== */
-.link {
-    display: block;
-    padding: 12px;
-    margin: 10px auto;
-    width: 250px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.1);
-    text-decoration: none;
-    color: cyan;
+.link{
+ display:block;
+ padding:12px;
+ margin:10px;
+ border-radius:10px;
+ border:1px solid cyan;
+ color:cyan;
+ text-decoration:none;
 }
-
-/* ===== BACK ===== */
-.back {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 15px;
-    background: cyan;
-    color: black;
-    border-radius: 20px;
-    cursor: pointer;
-    display: none;
+.link:hover{
+ box-shadow:0 0 10px cyan;
 }
 
 /* ===== RIPPLE ===== */
 @keyframes ripple{
- from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
- to{transform:translate(-50%,-50%) scale(12);opacity:0;}
+ from{transform:scale(1);opacity:0.7;}
+ to{transform:scale(10);opacity:0;}
 }
 </style>
 </head>
@@ -183,130 +173,148 @@ body.light .link {
 
 <!-- LOADING -->
 <div id="loading">
-    <div style="text-align:center">
-        <img src="9ae3a6a7a8ce299070df.jpg" class="loading-logo">
-        <h2>Tài liệu lớp 11</h2>
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <p id="loadingText">Đang tải...</p>
-    </div>
+ <div class="loader"></div>
+ <p>Loading...</p>
 </div>
 
-<!-- nền -->
-<div class="study-bg" id="bg"></div>
+<!-- CURSOR -->
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+<div class="spotlight" id="light"></div>
 
-<!-- nút theme -->
-<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+<canvas id="bg"></canvas>
 
-<!-- header -->
-<div class="header">
-    <img src="9ae3a6a7a8ce299070df.jpg" class="logo">
-    <h1>📚 TÀI LIỆU LỚP 11</h1>
+<div class="app">
+
+<div class="sidebar">
+ <h2>📚 TL11</h2>
+ <div class="menu-item" onclick="home()">🏠 Trang chủ</div>
+ <div class="menu-item" onclick="intro()">📖 Giới thiệu</div>
 </div>
 
-<!-- nội dung -->
-<div id="main" class="container"></div>
-<div class="back" id="backBtn" onclick="back()">⬅</div>
+<div class="main" id="main"></div>
+
+</div>
 
 <script>
 
-/* DATA */
-const data = {
-    "11A1": {
-        "Nhóm 1": [
-            {name:"Bài tập Toán", link:"#"},
-            {name:"Đề kiểm tra", link:"#"}
-        ],
-        "Nhóm 2": [],
-        "Nhóm 3": [],
-        "Nhóm 4": []
-    },
-    "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
+/* ===== SOUND ===== */
+const clickSound=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+const hoverSound=new Audio("https://www.soundjay.com/buttons/sounds/button-09.mp3");
+
+/* ===== DATA ===== */
+const data={
+ "11A1":{"Nhóm 1":[{name:"Toán",link:"#"}],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A2":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A3":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A6":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]}
 };
 
 let currentClass="";
 const main=document.getElementById("main");
 
-/* MENU */
-function showClasses(){
-    main.innerHTML="";
-    document.getElementById("backBtn").style.display="none";
-
-    main.innerHTML += `<div class="card">📖 Giới thiệu</div>`;
-
-    Object.keys(data).forEach(c=>{
-        main.innerHTML += `<div class="card">${c}</div>`;
-    });
-
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        if(i===0){
-            el.onclick=showIntro;
-        } else {
-            el.onclick=()=>showGroups(Object.keys(data)[i-1]);
-        }
-    });
+/* ===== HOME ===== */
+function home(){
+ clickSound.play();
+ main.innerHTML='<div class="panel"><h2>Chọn lớp</h2></div>';
+ Object.keys(data).forEach(c=>{
+  main.innerHTML+=`<div class="card">${c}</div>`;
+ });
+ document.querySelectorAll(".card").forEach((el,i)=>{
+  el.onclick=()=>groups(Object.keys(data)[i]);
+ });
 }
 
-/* INTRO */
-function showIntro(){
-    main.innerHTML = `
-    <div class="intro">
-        <h2>📖 Giới thiệu</h2>
-        <p>Website lưu trữ tài liệu lớp 11. Giúp học sinh dễ tìm.</p>
-    </div>
-    `;
-    document.getElementById("backBtn").style.display="block";
+/* ===== INTRO ===== */
+function intro(){
+ clickSound.play();
+ main.innerHTML='<div class="panel">Website tài liệu lớp 11</div>';
 }
 
-/* GROUP */
-function showGroups(c){
-    currentClass=c;
-    main.innerHTML="";
-    document.getElementById("backBtn").style.display="block";
-
-    Object.keys(data[c]).forEach(g=>{
-        main.innerHTML+=`<div class="card">${g}</div>`;
-    });
-
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        el.onclick=()=>showLinks(Object.keys(data[c])[i]);
-    });
+/* ===== GROUP ===== */
+function groups(c){
+ clickSound.play();
+ currentClass=c;
+ main.innerHTML='<div class="panel"><h2>'+c+'</h2></div>';
+ Object.keys(data[c]).forEach(g=>{
+  main.innerHTML+=`<div class="card">${g}</div>`;
+ });
+ document.querySelectorAll(".card").forEach((el,i)=>{
+  el.onclick=()=>links(Object.keys(data[c])[i]);
+ });
 }
 
-/* LINK */
-function showLinks(g){
-    main.innerHTML="";
-    data[currentClass][g].forEach(item=>{
-        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
-    });
+/* ===== LINKS ===== */
+function links(g){
+ clickSound.play();
+ main.innerHTML='<div class="panel"><h2>'+g+'</h2></div>';
+ data[currentClass][g].forEach(i=>{
+  main.innerHTML+=`<a class="link" href="${i.link}" target="_blank">${i.name}</a>`;
+ });
 }
 
-/* BACK */
-function back(){
-    showClasses();
+/* ===== PARTICLE ===== */
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+ particles.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  dx:(Math.random()-0.5)*0.5,
+  dy:(Math.random()-0.5)*0.5
+ });
 }
 
-/* THEME */
-function toggleTheme(){
-    document.body.classList.toggle("light");
+function draw(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="cyan";
+ particles.forEach(p=>{
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,2,0,Math.PI*2);
+  ctx.fill();
+  p.x+=p.dx;
+  p.y+=p.dy;
+  if(p.x<0||p.x>canvas.width) p.dx*=-1;
+  if(p.y<0||p.y>canvas.height) p.dy*=-1;
+ });
+ requestAnimationFrame(draw);
 }
+draw();
 
-/* NỀN */
-const icons=["📚","✏️","📖","📝"];
-setInterval(()=>{
- let el=document.createElement("div");
- el.className="icon";
- el.innerText=icons[Math.floor(Math.random()*icons.length)];
- el.style.left=Math.random()*100+"vw";
- el.style.animationDuration=(6+Math.random()*6)+"s";
- bg.appendChild(el);
- setTimeout(()=>el.remove(),10000);
-},400);
+/* ===== CURSOR ===== */
+const cursor=document.querySelector(".cursor");
+const ring=document.querySelector(".cursor-ring");
 
-/* RIPPLE */
+document.addEventListener("mousemove",e=>{
+ cursor.style.left=e.clientX+"px";
+ cursor.style.top=e.clientY+"px";
+ setTimeout(()=>{
+  ring.style.left=e.clientX+"px";
+  ring.style.top=e.clientY+"px";
+ },50);
+
+ document.getElementById("light").style.background=
+ `radial-gradient(circle at ${e.clientX}px ${e.clientY}px,
+ rgba(0,255,255,0.15), transparent 40%)`;
+
+ const x=(e.clientX/window.innerWidth-0.5)*10;
+ const y=(e.clientY/window.innerHeight-0.5)*10;
+ document.querySelector(".main").style.transform=`translate(${x}px,${y}px)`;
+});
+
+/* ===== HOVER SOUND ===== */
+document.addEventListener("mouseover",e=>{
+ if(e.target.classList.contains("card")||e.target.classList.contains("menu-item")){
+  hoverSound.currentTime=0;
+  hoverSound.play();
+ }
+});
+
+/* ===== RIPPLE ===== */
 document.addEventListener("click",e=>{
  let r=document.createElement("span");
  r.style.position="fixed";
@@ -316,31 +324,23 @@ document.addEventListener("click",e=>{
  r.style.height="10px";
  r.style.background="cyan";
  r.style.borderRadius="50%";
- r.style.transform="translate(-50%,-50%)";
  r.style.animation="ripple 0.6s";
  document.body.appendChild(r);
  setTimeout(()=>r.remove(),600);
 });
 
-/* LOADING */
-let p=0;
-let load=setInterval(()=>{
- p+=Math.random()*20;
- if(p>100)p=100;
- document.getElementById("progressBar").style.width=p+"%";
- if(p===100){
-  clearInterval(load);
-  setTimeout(()=>{
-   document.getElementById("loading").style.opacity=0;
-   setTimeout(()=>document.getElementById("loading").style.display="none",500);
-  },500);
- }
-},300);
+/* ===== LOADING ===== */
+window.onload=()=>{
+ setTimeout(()=>{
+  document.getElementById("loading").style.display="none";
+ },800);
+};
 
 /* LOAD */
-showClasses();
+home();
 
 </script>
 
 </body>
 </html>
+```
