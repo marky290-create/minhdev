@@ -2,175 +2,146 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Tài liệu lớp 11</title>
+<title>Game UI - Tài liệu 11</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: #020617;
-    color: white;
-    overflow-x: hidden;
-    transition: 0.3s;
+body{
+ margin:0;
+ font-family:Poppins;
+ background:#020617;
+ color:white;
+ overflow:hidden;
 }
 
 /* ===== LOADING ===== */
 #loading{
-    position:fixed;
-    width:100%;
-    height:100%;
-    background:radial-gradient(circle,#020617,#000);
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    transition:0.5s;
+ position:fixed;
+ width:100%;
+ height:100%;
+ background:#000;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ z-index:9999;
+ flex-direction:column;
 }
-.loading-logo{
-    width:80px;
-    border-radius:50%;
-    animation:glow 2s infinite alternate;
+.loader{
+ width:60px;
+ height:60px;
+ border:5px solid rgba(255,255,255,0.2);
+ border-top:5px solid cyan;
+ border-radius:50%;
+ animation:spin 1s linear infinite;
 }
-@keyframes glow{
-    from{box-shadow:0 0 10px cyan;}
-    to{box-shadow:0 0 30px cyan;}
-}
-.progress{
-    width:250px;
-    height:8px;
-    background:rgba(255,255,255,0.2);
-    border-radius:10px;
-    margin:10px auto;
-}
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:cyan;
+@keyframes spin{
+ to{transform:rotate(360deg);}
 }
 
-/* ===== THEME BUTTON ===== */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 15px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
+/* ===== PARTICLE ===== */
+canvas{
+ position:fixed;
+ top:0;
+ left:0;
+ z-index:-1;
 }
 
-/* ===== LIGHT MODE ===== */
-body.light {
-    background: linear-gradient(135deg, #e0f2fe, #f8fafc);
-    color: #0f172a;
+/* ===== LAYOUT ===== */
+.app{
+ display:flex;
+ height:100vh;
 }
 
-body.light .card,
-body.light .intro {
-    background: white;
-    color: black;
+/* ===== SIDEBAR ===== */
+.sidebar{
+ width:220px;
+ background:rgba(0,0,0,0.6);
+ backdrop-filter:blur(10px);
+ border-right:1px solid rgba(0,255,255,0.2);
+ padding:20px;
 }
 
-body.light .link {
-    background: #e2e8f0;
-    color: #2563eb;
+.sidebar h2{
+ text-align:center;
+ color:cyan;
+ text-shadow:0 0 10px cyan;
 }
 
-/* ===== NỀN ICON ===== */
-.study-bg {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
+/* ===== MENU ===== */
+.menu-item{
+ padding:12px;
+ margin:10px 0;
+ border-radius:10px;
+ cursor:pointer;
+ transition:0.3s;
 }
 
-/* ===== HEADER ===== */
-.header {
-    text-align: center;
-    padding: 40px 20px;
+.menu-item:hover{
+ box-shadow:0 0 15px cyan;
+ transform:translateX(5px);
 }
 
-.logo {
-    width: 100px;
-    border-radius: 50%;
+/* ===== MAIN ===== */
+.main{
+ flex:1;
+ padding:30px;
+ overflow:auto;
 }
 
-/* ===== GRID ===== */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
-    gap: 20px;
-    padding: 30px;
+/* ===== PANEL ===== */
+.panel{
+ background:rgba(255,255,255,0.05);
+ backdrop-filter:blur(15px);
+ border:1px solid rgba(0,255,255,0.2);
+ border-radius:15px;
+ padding:20px;
+ animation:fade 0.5s;
 }
 
-/* ===== CARD (AAA UPGRADE) ===== */
-.card {
-    padding: 25px;
-    border-radius: 20px;
-    text-align: center;
-    cursor: pointer;
-    background: rgba(255,255,255,0.08);
-    transition: 0.3s;
-    border:1px solid rgba(0,255,255,0.2);
-    box-shadow: inset 0 0 10px rgba(0,255,255,0.2);
+@keyframes fade{
+ from{opacity:0; transform:translateY(10px);}
+ to{opacity:1; transform:translateY(0);}
 }
 
-.card:hover {
-    transform: scale(1.1);
-    box-shadow:0 0 20px cyan;
+/* ===== CARD ===== */
+.card{
+ padding:20px;
+ margin:10px;
+ display:inline-block;
+ border-radius:12px;
+ border:1px solid rgba(0,255,255,0.2);
+ cursor:pointer;
+ transition:0.3s;
+ position:relative;
+ overflow:hidden;
 }
 
-/* ===== INTRO ===== */
-.intro {
-    max-width: 800px;
-    margin: auto;
-    padding: 25px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.08);
-    text-align: center;
+.card:hover{
+ transform:scale(1.05);
+ box-shadow:0 0 20px cyan;
 }
 
 /* ===== LINK ===== */
-.link {
-    display: block;
-    padding: 12px;
-    margin: 10px auto;
-    width: 250px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.1);
-    text-decoration: none;
-    color: cyan;
+.link{
+ display:block;
+ padding:12px;
+ margin:10px;
+ border-radius:10px;
+ border:1px solid cyan;
+ color:cyan;
+ text-decoration:none;
+ transition:0.3s;
 }
 
-/* ===== BACK ===== */
-.back {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    padding: 10px 15px;
-    background: cyan;
-    color: black;
-    border-radius: 20px;
-    cursor: pointer;
-    display: none;
-}
-
-/* ===== FADE ===== */
-.fade{
-    animation:fadeIn 0.4s;
-}
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
+.link:hover{
+ box-shadow:0 0 10px cyan;
 }
 
 /* ===== RIPPLE ===== */
 @keyframes ripple{
- from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
- to{transform:translate(-50%,-50%) scale(12);opacity:0;}
+ from{transform:scale(1);opacity:0.7;}
+ to{transform:scale(10);opacity:0;}
 }
 </style>
 </head>
@@ -179,39 +150,85 @@ body.light .link {
 
 <!-- LOADING -->
 <div id="loading">
-    <div style="text-align:center">
-        <img src="logo.png" class="loading-logo">
-        <h2>Tài liệu lớp 11</h2>
-        <div class="progress">
-            <div class="progress-bar" id="progressBar"></div>
-        </div>
-        <p id="loadingText">Đang tải...</p>
-    </div>
+ <div class="loader"></div>
+ <p>Loading game UI...</p>
 </div>
 
-<div class="study-bg" id="bg"></div>
+<canvas id="bg"></canvas>
 
-<button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+<div class="app">
 
-<div class="header">
-    <img src="logo.png" class="logo">
-    <h1>📚 TÀI LIỆU LỚP 11</h1>
+<div class="sidebar">
+ <h2>📚 TL11</h2>
+ <div class="menu-item" onclick="home()">🏠 Trang chủ</div>
+ <div class="menu-item" onclick="intro()">📖 Giới thiệu</div>
 </div>
 
-<div id="main" class="container"></div>
-<div class="back" id="backBtn" onclick="back()">⬅</div>
+<div class="main" id="main"></div>
+
+</div>
 
 <script>
 
-/* ===== AAA PARTICLE ===== */
-const canvas = document.createElement("canvas");
-document.body.appendChild(canvas);
-canvas.style.position="fixed";
-canvas.style.top=0;
-canvas.style.left=0;
-canvas.style.zIndex=-1;
+/* ===== SOUND ===== */
+const clickSound=new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
 
-const ctx = canvas.getContext("2d");
+/* ===== DATA ===== */
+const data={
+ "11A1":{"Nhóm 1":[{name:"Toán",link:"#"}],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A2":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A3":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]},
+ "11A6":{"Nhóm 1":[],"Nhóm 2":[],"Nhóm 3":[],"Nhóm 4":[]}
+};
+
+let currentClass="";
+const main=document.getElementById("main");
+
+/* ===== HOME ===== */
+function home(){
+ clickSound.play();
+ main.innerHTML='<div class="panel"><h2>Chọn lớp</h2></div>';
+ Object.keys(data).forEach(c=>{
+  main.innerHTML+=`<div class="card">${c}</div>`;
+ });
+
+ document.querySelectorAll(".card").forEach((el,i)=>{
+  el.onclick=()=>groups(Object.keys(data)[i]);
+ });
+}
+
+/* ===== INTRO ===== */
+function intro(){
+ clickSound.play();
+ main.innerHTML='<div class="panel">Website tài liệu lớp 11</div>';
+}
+
+/* ===== GROUP ===== */
+function groups(c){
+ clickSound.play();
+ currentClass=c;
+ main.innerHTML='<div class="panel"><h2>'+c+'</h2></div>';
+ Object.keys(data[c]).forEach(g=>{
+  main.innerHTML+=`<div class="card">${g}</div>`;
+ });
+
+ document.querySelectorAll(".card").forEach((el,i)=>{
+  el.onclick=()=>links(Object.keys(data[c])[i]);
+ });
+}
+
+/* ===== LINKS ===== */
+function links(g){
+ clickSound.play();
+ main.innerHTML='<div class="panel"><h2>'+g+'</h2></div>';
+ data[currentClass][g].forEach(i=>{
+  main.innerHTML+=`<a class="link" href="${i.link}" target="_blank">${i.name}</a>`;
+ });
+}
+
+/* ===== PARTICLE ===== */
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
@@ -220,92 +237,45 @@ for(let i=0;i<80;i++){
  particles.push({
   x:Math.random()*canvas.width,
   y:Math.random()*canvas.height,
-  dx:(Math.random()-0.5)*0.6,
-  dy:(Math.random()-0.5)*0.6
+  dx:(Math.random()-0.5)*0.5,
+  dy:(Math.random()-0.5)*0.5
  });
 }
 
-function animate(){
+function draw(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="cyan";
+
  particles.forEach(p=>{
   ctx.beginPath();
   ctx.arc(p.x,p.y,2,0,Math.PI*2);
   ctx.fill();
+
   p.x+=p.dx;
   p.y+=p.dy;
+
+  if(p.x<0||p.x>canvas.width) p.dx*=-1;
+  if(p.y<0||p.y>canvas.height) p.dy*=-1;
  });
- requestAnimationFrame(animate);
+
+ requestAnimationFrame(draw);
 }
-animate();
+draw();
 
-/* DATA giữ nguyên */
-const data = {
-    "11A1": {
-        "Nhóm 1": [
-            {name:"Bài tập Toán", link:"#"},
-            {name:"Đề kiểm tra", link:"#"}
-        ],
-        "Nhóm 2": [],
-        "Nhóm 3": [],
-        "Nhóm 4": []
-    },
-    "11A2": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A3": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []},
-    "11A6": {"Nhóm 1": [],"Nhóm 2": [],"Nhóm 3": [],"Nhóm 4": []}
-};
+/* ===== HOVER LIGHT ===== */
+document.addEventListener("mousemove", e=>{
+ document.querySelectorAll(".card").forEach(card=>{
+  const rect=card.getBoundingClientRect();
+  const x=e.clientX-rect.left;
+  const y=e.clientY-rect.top;
 
-let currentClass="";
-const main=document.getElementById("main");
+  card.style.background=`radial-gradient(circle at ${x}px ${y}px,
+  rgba(0,255,255,0.25),
+  rgba(255,255,255,0.05))`;
+ });
+});
 
-function showClasses(){
-    main.classList.add("fade");
-    main.innerHTML="";
-    backBtn.style.display="none";
-    main.innerHTML += `<div class="card">📖 Giới thiệu</div>`;
-    Object.keys(data).forEach(c=>{
-        main.innerHTML += `<div class="card">${c}</div>`;
-    });
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        if(i===0) el.onclick=showIntro;
-        else el.onclick=()=>showGroups(Object.keys(data)[i-1]);
-    });
-}
-
-function showIntro(){
-    main.classList.add("fade");
-    main.innerHTML=`<div class="intro">Website tài liệu lớp 11</div>`;
-    backBtn.style.display="block";
-}
-
-function showGroups(c){
-    main.classList.add("fade");
-    currentClass=c;
-    main.innerHTML="";
-    backBtn.style.display="block";
-    Object.keys(data[c]).forEach(g=>{
-        main.innerHTML+=`<div class="card">${g}</div>`;
-    });
-    document.querySelectorAll(".card").forEach((el,i)=>{
-        el.onclick=()=>showLinks(Object.keys(data[c])[i]);
-    });
-}
-
-function showLinks(g){
-    main.classList.add("fade");
-    main.innerHTML="";
-    data[currentClass][g].forEach(item=>{
-        main.innerHTML+=`<a href="${item.link}" target="_blank" class="link">${item.name}</a>`;
-    });
-}
-
-function back(){ showClasses(); }
-
-function toggleTheme(){
-    document.body.classList.toggle("light");
-}
-
-/* RIPPLE */
+/* ===== RIPPLE ===== */
 document.addEventListener("click",e=>{
  let r=document.createElement("span");
  r.style.position="fixed";
@@ -315,39 +285,20 @@ document.addEventListener("click",e=>{
  r.style.height="10px";
  r.style.background="cyan";
  r.style.borderRadius="50%";
- r.style.transform="translate(-50%,-50%)";
  r.style.animation="ripple 0.6s";
  document.body.appendChild(r);
  setTimeout(()=>r.remove(),600);
 });
 
-/* HOVER AAA */
-document.addEventListener("mousemove", e=>{
- document.querySelectorAll(".card").forEach(card=>{
-  const rect=card.getBoundingClientRect();
-  const x=e.clientX-rect.left;
-  const y=e.clientY-rect.top;
-  card.style.background=`radial-gradient(circle at ${x}px ${y}px, rgba(0,255,255,0.25), rgba(255,255,255,0.05))`;
- });
-});
-
-/* LOADING */
-let p=0;
-let load=setInterval(()=>{
- p+=Math.random()*20;
- if(p>100)p=100;
- progressBar.style.width=p+"%";
- if(p===100){
-  clearInterval(load);
-  setTimeout(()=>{
-   loading.style.opacity=0;
-   setTimeout(()=>loading.style.display="none",500);
-  },500);
- }
-},300);
+/* ===== LOADING ===== */
+window.onload=()=>{
+ setTimeout(()=>{
+  document.getElementById("loading").style.display="none";
+ },1000);
+};
 
 /* LOAD */
-showClasses();
+home();
 
 </script>
 
