@@ -196,6 +196,42 @@ body.light .link {
     display: none;
 }
 
+
+/* AI */
+.ai-box{
+ position:fixed;
+ bottom:20px;
+ right:20px;
+ width:260px;
+ background:rgba(0,0,0,0.7);
+ border:1px solid cyan;
+ border-radius:10px;
+ overflow:hidden;
+}
+.ai-header{
+ background:cyan;
+ color:black;
+ padding:8px;
+ text-align:center;
+}
+.ai-chat{
+ height:180px;
+ overflow:auto;
+ padding:10px;
+ font-size:13px;
+}
+.ai-user{color:white;}
+.ai-bot{color:cyan;}
+#input{
+ width:100%;
+ padding:8px;
+ border:none;
+ outline:none;
+ background:#020617;
+ color:white;
+}
+
+
 /* ===== RIPPLE ===== */
 @keyframes ripple{
  from{transform:translate(-50%,-50%) scale(1);opacity:0.7;}
@@ -233,6 +269,16 @@ body.light .link {
 <!-- nội dung -->
 <div id="main" class="container"></div>
 <div class="back" id="backBtn" onclick="back()">⬅</div>
+
+<!-- AI -->
+<div class="ai-box">
+ <div class="ai-header">🤖 AI Chat</div>
+ <div class="ai-chat" id="chat"></div>
+ <input id="input" placeholder="Hỏi gì đó..." onkeydown="if(event.key==='Enter') send()">
+</div>
+
+<script>
+
 
 <!-- HACKER TEXT -->
 <div class="credit" id="credit"></div>
@@ -328,6 +374,44 @@ function showLinks(g){
 /* BACK */
 function back(){
     showClasses();
+}
+
+/* AI SMART */
+function normalize(t){
+ return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+}
+
+function send(){
+ let input=document.getElementById("input");
+ let text=input.value.trim();
+ if(!text) return;
+
+ let chat=document.getElementById("chat");
+ chat.innerHTML+=`<div class="ai-user">👤 ${text}</div>`;
+
+ let t=normalize(text);
+ let foundClass=Object.keys(data).find(c=>t.includes(c.toLowerCase()));
+ let foundGroup=foundClass && Object.keys(data[foundClass]).find(g=>t.includes(normalize(g)));
+
+ let reply="🤖 Không hiểu 😅";
+
+ if(foundClass && foundGroup){
+  let links=data[foundClass][foundGroup];
+  if(links.length===0){
+   reply="Nhóm chưa có tài liệu";
+  }else{
+   reply=`📚 ${foundClass} - ${foundGroup}<br>`;
+   links.forEach(l=>{
+    reply+=`👉 <a href="${l.link}" target="_blank" style="color:cyan">${l.name}</a><br>`;
+   });
+  }
+ }else{
+  reply="Thử hỏi: 11A1 nhóm 1";
+ }
+
+ chat.innerHTML+=`<div class="ai-bot">${reply}</div>`;
+ chat.scrollTop=chat.scrollHeight;
+ input.value="";
 }
 
 /* THEME */
