@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tài liệu lớp 11</title>
+    <title>GDĐPST11THPTĐN</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -313,7 +313,7 @@
 
 <div class="header">
     <img src="9ae3a6a7a8ce299070df.jpg" class="logo" alt="Logo">
-    <h1>📚 TÀI LIỆU LỚP 11</h1>
+    <h1>📚 TÀI LIỆU MÔN GIÁO DỤC ĐỊA PHƯƠNG SÓC TRĂNG LỚP 11 THPT ĐẠI NGÃI</h1>
     <p>Kho lưu trữ tài liệu lớp 11 năm học 2025-2026</p>
 </div>
 
@@ -321,7 +321,7 @@
 <div class="back" id="backBtn" onclick="back()">⬅</div>
 
 <div class="ai-box">
-    <div class="ai-header">🤖 Trợ lý AI</div>
+    <div class="ai-header">🤖 AI Chatbot</div>
     <div class="ai-chat" id="chat">
         <div class="ai-bot">Chào bạn! Bạn cần tìm tài liệu của lớp nào?</div>
     </div>
@@ -374,8 +374,8 @@ function showIntro() {
     <div class="intro">
         <h2>📖 Giới thiệu</h2>
         <p>Đây là website lưu trữ tài liệu học tập cho học sinh khối 11.
-        Website không phải do Minh Lê tự code ra mà có sự hỗ trợ của AI.
-        Xin vui lòng không tranh luận về chất lượng sản phẩm. Cảm ơn!</p>
+        LƯU Ý: Website không phải do "M" tự code ra mà có sự hỗ trợ của AI.
+        Xin vui lòng không tranh luận về chất lượng ưebsite. Em cảm ơn ạaa!!!</p>
     <h3>💻 Cấu hình đề xuất</h3>
 
     <p><b>🟢 Tối thiểu:</b><br>
@@ -438,7 +438,7 @@ function send() {
     let foundClass = Object.keys(data).find(c => t.includes(c.toLowerCase()));
     let foundGroup = foundClass && Object.keys(data[foundClass]).find(g => t.includes(normalize(g)));
 
-    let reply = "🤖 Thử hỏi: 11A1 nhóm 1";
+    let reply = "🤖 Thử hỏi: 11A{1;2;3;6} nhóm {1;2;3;4}";
 
     if (foundClass && foundGroup) {
         let links = data[foundClass][foundGroup];
