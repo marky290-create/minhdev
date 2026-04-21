@@ -51,7 +51,36 @@
             width: 0%;
             background: cyan;
         }
+        
+        /* ===== PERFORMANCE ===== */
+        #perf{
+        position:fixed;
+        top:10px;
+        left:10px;
+        background:rgba(0,0,0,0.6);
+        padding:10px;
+        border-radius:10px;
+        font-size:12px;
+        color:#00ffff;
+        border:1px solid cyan;
+        backdrop-filter:blur(5px);
+        }
 
+        /* ===== SPECS ===== */
+        #specs{
+        position:fixed;
+        bottom:10px;
+        left:10px;
+        background:rgba(0,0,0,0.6);
+        padding:10px;
+        border-radius:10px;
+        font-size:12px;
+        color:#00ffff;
+        border:1px solid cyan;
+        backdrop-filter:blur(5px);
+        max-width:220px;
+        } 
+        
         /* ===== HACKER TEXT ===== */
         .credit {
             position: fixed;
@@ -283,6 +312,20 @@
 
 <div class="credit" id="credit"></div>
 
+<!-- PERFORMANCE PANEL -->
+<div id="perf">
+  FPS: <span id="fps">0</span><br>
+  Ping: <span id="ping">0</span> ms
+</div>
+
+<!-- PC SPECS -->
+<div id="specs">
+  💻 Cấu hình khuyến nghị:<br>
+  CPU: i3 / Ryzen 3 trở lên<br>
+  RAM: 4GB+<br>
+  GPU: Có tăng tốc đồ họa (Chrome/WebKit)<br>
+  Trình duyệt: Chrome, Edge mới<br>
+</div>
 <script>
 /* DỮ LIỆU */
 const data = {
@@ -442,6 +485,42 @@ let loadInterval = setInterval(() => {
 }, 200);
 
 showClasses();
+
+/* ===== FPS ===== */
+let lastFrame = performance.now();
+let frames = 0;
+
+function measureFPS(){
+  let now = performance.now();
+  frames++;
+
+  if(now - lastFrame >= 1000){
+    document.getElementById("fps").innerText = frames;
+    frames = 0;
+    lastFrame = now;
+  }
+
+  requestAnimationFrame(measureFPS);
+}
+measureFPS();
+
+/* ===== PING (response time) ===== */
+function measurePing(){
+  let start = performance.now();
+
+  fetch(window.location.href, {method:"HEAD"})
+    .then(()=>{
+      let end = performance.now();
+      document.getElementById("ping").innerText = Math.floor(end - start);
+    })
+    .catch(()=>{
+      document.getElementById("ping").innerText = "ERR";
+    });
+}
+
+setInterval(measurePing, 3000);
+measurePing();
+
 </script>
 </body>
 </html>
