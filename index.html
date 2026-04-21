@@ -14,7 +14,7 @@
             overflow-x: hidden;
             transition: 0.3s;
         }
-        /* ===== NỀN SÓC TRĂNG ===== */
+        /* ===== NỀN SÓC TRĂNG REAL ===== */
         .soc-trang-bg{
         position: fixed;
         width: 100%;
@@ -23,45 +23,52 @@
         left: 0;
         z-index: -1;
         overflow: hidden;
-       }
+        }
 
-       /* layer ảnh */
-       .bg-layer{
-       position: absolute;
-       width: 110%;
-       height: 110%;
-       background-size: cover;
-       background-position: center;
-       opacity: 0.4;
-       animation: moveBg 40s linear infinite;
-       }
+        /* layer chính */
+        .bg-layer{
+        position: absolute;
+        width: 120%;
+        height: 120%;
+        background-size: cover;
+        background-position: center;
+        animation: moveBg 30s ease-in-out infinite;
+        filter: brightness(0.9) contrast(1.1);
+        }
 
-       /* ảnh 1 (chùa) */
-       .bg1{
-       background-image: url("https://images.unsplash.com/photo-1606813902914-6c64d2cbe147");
-       }
+        /* CHÙA DƠI */
+        .bg1{
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/3b/Chua_Doi_Soc_Trang.jpg");
+        opacity: 0.7;
+        }
 
-       /* ảnh 2 (sông nước) */
-       .bg2{
-       background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
-       animation-duration: 60s;
-       opacity: 0.25;
-       }
+        /* SÔNG NƯỚC MIỀN TÂY */
+        .bg2{
+        background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/6f/Mekong_delta_river.jpg");
+        opacity: 0.35;
+        animation-duration: 50s;
+        mix-blend-mode: lighten;
+        }
 
-       /* chuyển động nhẹ */
-       @keyframes moveBg{
-       0%{transform:translateY(0) scale(1);}
-       50%{transform:translateY(-30px) scale(1.05);}
-       100%{transform:translateY(0) scale(1);}
-       }
+        /* chuyển động xịn hơn */
+        @keyframes moveBg{
+        0%{transform:translateY(0) scale(1);}
+        25%{transform:translateY(-40px) scale(1.05);}
+        50%{transform:translateX(30px) scale(1.08);}
+        75%{transform:translateY(-20px) scale(1.04);}
+        100%{transform:translateY(0) scale(1);}
+        }
 
-       /* lớp ánh sáng */
-       .bg-overlay{
-       position:absolute;
-       width:100%;
-       height:100%;
-       background:linear-gradient(180deg,rgba(0,0,0,0.6),#020617);
-       }
+        /* overlay cinematic */
+        .bg-overlay{
+        position:absolute;
+        width:100%;
+        height:100%;
+        background:
+        linear-gradient(180deg, rgba(0,0,0,0.3), #020617),
+        radial-gradient(circle at center, rgba(0,255,255,0.08), transparent 70%);
+        backdrop-filter: blur(2px);
+        }
         /* ===== LOADING ===== */
         #loading {
             position: fixed;
