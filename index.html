@@ -65,21 +65,6 @@
         border:1px solid cyan;
         backdrop-filter:blur(5px);
         }
-
-        /* ===== SPECS ===== */
-        #specs{
-        position:fixed;
-        bottom:10px;
-        left:10px;
-        background:rgba(0,0,0,0.6);
-        padding:10px;
-        border-radius:10px;
-        font-size:12px;
-        color:#00ffff;
-        border:1px solid cyan;
-        backdrop-filter:blur(5px);
-        max-width:220px;
-        } 
         
         /* ===== HACKER TEXT ===== */
         .credit {
@@ -318,14 +303,6 @@
   Ping: <span id="ping">0</span> ms
 </div>
 
-<!-- PC SPECS -->
-<div id="specs">
-  💻 Cấu hình khuyến nghị:<br>
-  CPU: i3 / Ryzen 3 trở lên<br>
-  RAM: 4GB+<br>
-  GPU: Có tăng tốc đồ họa (Chrome/WebKit)<br>
-  Trình duyệt: Chrome, Edge mới<br>
-</div>
 <script>
 /* DỮ LIỆU */
 const data = {
@@ -366,6 +343,14 @@ function showIntro() {
         <p>Đây là website lưu trữ tài liệu học tập cho học sinh khối 11.
         Website không phải do Minh Lê tự code ra mà có sự hỗ trợ của AI.
         Xin vui lòng không tranh luận về chất lượng sản phẩm. Cảm ơn!</p>
+    <h3>💻 Cấu hình khuyến nghị để chạy web</h3>
+    <p>
+        CPU: Intel i3 / Ryzen 3 trở lên<br>
+        RAM: 4GB trở lên<br>
+        GPU: Hỗ trợ tăng tốc đồ họa (Chrome / Edge)<br>
+        Trình duyệt: Chrome, Edge phiên bản mới<br>
+        Internet: Ổn định để load nhanh hơn
+    </p>   
     </div>`;
     document.getElementById("backBtn").style.display = "block";
 }
