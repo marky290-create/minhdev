@@ -62,17 +62,7 @@
         height:100%;
         background:linear-gradient(180deg,rgba(0,0,0,0.3),#020617);
         }
-        <div class="profile-box" id="profileBox">
-        <h3>💻 Cấu hình Admin</h3>
-
-        <p><b>CPU:</b> Intel Core i5-10400</p>
-        <p><b>RAM:</b> 8GB</p>
-        <p><b>GPU:</b> Intel UHD 630</p>
-        <p><b>Ổ cứng:</b> SSD 256GB</p>
-        <p><b>Thiết bị:</b> Laptop</p>
-
-        <p style="color:cyan;">⚡ Trạng thái: Hoạt động tốt</p>
-        </div>
+      
         /* ===== LOADING ===== */
         #loading {
             position: fixed;
@@ -509,19 +499,6 @@ let loadInterval = setInterval(() => {
 }, 200);
 
 showClasses();
-
-function toggleProfile(){
- let box=document.getElementById("profileBox");
- box.style.display=(box.style.display==="block")?"none":"block";
-}
-
-document.addEventListener("click",function(e){
- let p=document.querySelector(".profile");
- let box=document.getElementById("profileBox");
- if(!p.contains(e.target) && !box.contains(e.target)){
-  box.style.display="none";
- }
-});
 
 /* ===== FPS ===== */
 let lastFrame = performance.now();
