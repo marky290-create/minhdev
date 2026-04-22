@@ -321,6 +321,22 @@
             from { width: 0px; height: 0px; opacity: 0.5; }
             to { width: 100px; height: 100px; opacity: 0; }
         }
+        .qr-box{
+        position:fixed;
+        bottom:20px;
+        left:20px;
+        z-index:1000;
+        }
+
+        .qr-box img{
+        width:90px;   /* đủ quét */
+        height:90px;
+        border-radius:10px;
+        border:2px solid cyan;
+        box-shadow:0 0 10px cyan;
+        background:white;
+        padding:5px;
+        }
     </style>
 </head>
 
@@ -560,23 +576,7 @@ document.addEventListener("click",function(e){
   box.style.display="none";
  }
 });
-.qr-box{
- position:fixed;
- bottom:20px;
- left:20px;
- z-index:1000;
-}
 
-.qr-box img{
- width:70px;        /* nhỏ lại */
- height:70px;
- border-radius:8px;
- border:2px solid cyan;
- box-shadow:0 0 8px cyan;
- background:white;
- padding:3px;       /* giảm padding */
- transition:0.3s;
-}
 /* ===== FPS ===== */
 let lastFrame = performance.now();
 let frames = 0;
