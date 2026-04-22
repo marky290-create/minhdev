@@ -342,7 +342,9 @@
  <p><b>GPU:</b> NVIDIA GEFORCE RTX 4080</p>
  <p><b>Ổ cứng:</b> SSD 1TB</p>
  <p><b>Thiết bị:</b> DESKTOP</p>
-
+<div class="qr-box">
+  <img src="qr.png" alt="QR Code">
+</div>
  <p style="color:cyan;">⚡ Trạng thái: Online</p>
 </div>
 <div id="loading">
@@ -558,6 +560,22 @@ document.addEventListener("click",function(e){
   box.style.display="none";
  }
 });
+.qr-box{
+ position:fixed;
+ bottom:20px;
+ left:20px;
+ z-index:1000;
+}
+
+.qr-box img{
+ width:90px;   /* đủ quét */
+ height:90px;
+ border-radius:10px;
+ border:2px solid cyan;
+ box-shadow:0 0 10px cyan;
+ background:white;
+ padding:5px;
+}    
 /* ===== FPS ===== */
 let lastFrame = performance.now();
 let frames = 0;
