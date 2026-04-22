@@ -568,14 +568,15 @@ document.addEventListener("click",function(e){
 }
 
 .qr-box img{
- width:90px;   /* đủ quét */
- height:90px;
- border-radius:10px;
+ width:70px;        /* nhỏ lại */
+ height:70px;
+ border-radius:8px;
  border:2px solid cyan;
- box-shadow:0 0 10px cyan;
+ box-shadow:0 0 8px cyan;
  background:white;
- padding:5px;
-}    
+ padding:3px;       /* giảm padding */
+ transition:0.3s;
+}
 /* ===== FPS ===== */
 let lastFrame = performance.now();
 let frames = 0;
