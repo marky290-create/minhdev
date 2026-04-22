@@ -14,6 +14,19 @@
             overflow-x: hidden;
             transition: 0.3s;
         }
+        /* ===== NÚT NHẠC ===== */
+        #musicBtn{
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        z-index:1000;
+        padding:10px 15px;
+        border-radius:20px;
+        border:1px solid cyan;
+        background:rgba(0,255,255,0.1);
+        color:cyan;
+        cursor:pointer;
+        }
         /* ===== NỀN SÓC TRĂNG (SLIDE) ===== */
         .soc-trang-bg{
         position:fixed;
@@ -341,7 +354,12 @@
 </head>
 
 <body>
+<!-- ===== NHẠC ===== -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
+<button id="musicBtn" onclick="toggleMusic()">🎵 Bật nhạc</button>
 <div class="soc-trang-bg">
   <div class="bg-layer bg1"></div>
   <div class="bg-layer bg2"></div>
@@ -611,7 +629,31 @@ function measurePing(){
 
 setInterval(measurePing, 3000);
 measurePing();
+/* ===== NHẠC ===== */
+let music=document.getElementById("bgMusic");
+let isPlaying=false;
 
+music.volume=0.3;
+
+/* load trạng thái */
+if(localStorage.getItem("music")==="on"){
+music.play();
+isPlaying=true;
+document.getElementById("musicBtn").innerText="⏸ Tắt nhạc";
+}
+
+function toggleMusic(){
+if(isPlaying){
+music.pause();
+localStorage.setItem("music","off");
+document.getElementById("musicBtn").innerText="🎵 Bật nhạc";
+}else{
+music.play();
+localStorage.setItem("music","on");
+document.getElementById("musicBtn").innerText="⏸ Tắt nhạc";
+}
+isPlaying=!isPlaying;
+}
 </script>
 </body>
 </html>
