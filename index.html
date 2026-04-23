@@ -55,16 +55,21 @@
         left:0;
         z-index:-1;
         overflow:hidden;
+        background-color: #020617; /* Màu nền dự phòng nếu ảnh chưa kịp load */
         }
 
-        .bg-layer{
-        position:absolute;
-        width:100%;
-        height:100%;
-        background-size:cover;
-        background-position:center;
-        opacity:0;
-        animation:fadeBg 16s infinite;
+        /* 1. Tối ưu lớp nền để chạy mượt hơn bằng GPU */
+        .bg-layer {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        animation: fadeBg 16s infinite;
+        /* Thêm 2 dòng này để chống khựng */
+        will-change: opacity;
+        transform: translateZ(0); 
         }
 
         /* ảnh 1 */
@@ -79,12 +84,11 @@
         }
 
         /* fade animation */
-        @keyframes fadeBg{
-        0%{opacity:0;}
-        10%{opacity:1;}
-        40%{opacity:1;}
-        50%{opacity:0;}
-        100%{opacity:0;}
+        /* 2. Sửa lại Animation để ảnh gối đầu lên nhau mượt hơn */
+        @keyframes fadeBg {
+        0%, 100% { opacity: 0; }
+        10%, 40% { opacity: 1; }
+        50% { opacity: 0; }
         }
 
         /* overlay */
@@ -95,33 +99,35 @@
         background:linear-gradient(180deg,rgba(0,0,0,0.3),#020617);
         }
         /* ===== MODE CONFIG ===== */
-        body.quality .bg-layer{
-        opacity:0.5;
-        animation:fadeBg 16s infinite;
+        /* 3. Sửa lại MODE CONFIG (Quan trọng: Không chỉnh opacity ở đây nữa) */
+        /* Chúng ta sẽ chỉnh độ sáng tối qua lớp overlay để tiết kiệm tài nguyên */
+
+        body.quality .bg-overlay {
+        background: linear-gradient(180deg, rgba(0,0,0,0.3), #020617);
         }
-        body.quality .card{
-        backdrop-filter:blur(10px);
-        box-shadow:0 0 20px cyan;
+        body.quality .card {
+        backdrop-filter: blur(8px); /* Giảm nhẹ blur để mượt hơn */
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
-        body.balanced .bg-layer{
-        opacity:0.35;
-        animation:fadeBg 20s infinite;
+        body.balanced .bg-overlay {
+        background: linear-gradient(180deg, rgba(0,0,0,0.6), #020617); /* Tối hơn để dễ đọc */
         }
-        body.balanced .card{
-        backdrop-filter:blur(5px);
+        body.balanced .card {
+        backdrop-filter: blur(4px);
         }
 
-        body.performance .bg-layer{
-        animation:none;
-        opacity:0.2;
+        body.performance .bg-layer {
+        animation: none !important;
+        opacity: 0 !important;
         }
-        body.performance .card{
-        backdrop-filter:none;
-        box-shadow:none;
+        /* Hiện cố định 1 ảnh duy nhất ở chế độ Performance để máy yếu vẫn có nền */
+        body.performance .bg1 {
+        opacity: 0.2 !important;
         }
-        body.performance .ripple-effect{
-        display:none;
+        body.performance .card {
+        backdrop-filter: none;
+        background: rgba(255,255,255,0.05);
         }
         /* avatar góc phải */
         .profile{
