@@ -27,6 +27,25 @@
         color:cyan;
         cursor:pointer;
         }
+        /* ===== MODE MENU ===== */
+        .mode-box{
+        position:fixed;
+        top:20px;
+        left:50%;
+        transform:translateX(-50%);
+        z-index:1000;
+        display:flex;
+        gap:10px;
+        }
+        .mode-box button{
+        padding:8px 12px;
+        border-radius:20px;
+        border:1px solid cyan;
+        background:rgba(0,255,255,0.1);
+        color:cyan;
+        cursor:pointer;
+        }
+
         /* ===== NỀN SÓC TRĂNG (SLIDE) ===== */
         .soc-trang-bg{
         position:fixed;
@@ -74,6 +93,35 @@
         width:100%;
         height:100%;
         background:linear-gradient(180deg,rgba(0,0,0,0.3),#020617);
+        }
+        /* ===== MODE CONFIG ===== */
+        body.quality .bg-layer{
+        opacity:0.5;
+        animation:fadeBg 16s infinite;
+        }
+        body.quality .card{
+        backdrop-filter:blur(10px);
+        box-shadow:0 0 20px cyan;
+        }
+
+        body.balanced .bg-layer{
+        opacity:0.35;
+        animation:fadeBg 20s infinite;
+        }
+        body.balanced .card{
+        backdrop-filter:blur(5px);
+        }
+
+        body.performance .bg-layer{
+        animation:none;
+        opacity:0.2;
+        }
+        body.performance .card{
+        backdrop-filter:none;
+        box-shadow:none;
+        }
+        body.performance .ripple-effect{
+        display:none;
         }
         /* avatar góc phải */
         .profile{
@@ -360,6 +408,13 @@
 </audio>
 
 <button id="musicBtn" onclick="toggleMusic()">🎵 Bật nhạc</button>
+<!-- MODE -->
+<div class="mode-box">
+ <button onclick="setMode('quality')">🟢 Quality</button>
+ <button onclick="setMode('balanced')">🟡 Balanced</button>
+ <button onclick="setMode('performance')">🔴 Performance</button>
+</div>
+
 <div class="soc-trang-bg">
   <div class="bg-layer bg1"></div>
   <div class="bg-layer bg2"></div>
@@ -541,6 +596,14 @@ function toggleTheme() {
     const isLight = document.body.classList.toggle("light");
     document.getElementById("themeBtn").innerText = isLight ? "☀️ Chế độ sáng" : "🌙 Chế độ tối";
 }
+/* MODE */
+function setMode(mode){
+ document.body.classList.remove("quality","balanced","performance");
+ document.body.classList.add(mode);
+ localStorage.setItem("mode",mode);
+}
+let saved=localStorage.getItem("mode")||"balanced";
+setMode(saved);
 
 /* EFFECT */
 
