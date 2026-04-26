@@ -404,6 +404,15 @@
         background:white;
         padding:5px;
         }
+        /* ===== PET ===== */
+        #pet{
+        position:fixed;
+        width:60px;
+        pointer-events:none;
+        z-index:999;
+        transition:0.2s linear;
+        }
+        body.performance #pet{display:none;}
     </style>
 </head>
 
@@ -441,7 +450,10 @@
 </div>
 <div class="qr-box">
   <img src="qr code.png" alt="QR Code">
-</div>    
+</div>
+<!-- PET -->
+<img id="pet" src="https://media.tenor.com/9vRAkntogEMAAAAi/cute-cat.gif">
+
 <div id="loading">
     <div style="text-align:center">
         <img src="9ae3a6a7a8ce299070df.jpg" class="loading-logo" alt="Logo">
@@ -610,7 +622,12 @@ function setMode(mode){
 }
 let saved=localStorage.getItem("mode")||"balanced";
 setMode(saved);
-
+/* PET FOLLOW */
+const pet = document.getElementById("pet");
+document.addEventListener("mousemove", e=>{
+ pet.style.left = (e.clientX + 15) + "px";
+ pet.style.top = (e.clientY + 15) + "px";
+});
 /* EFFECT */
 
 document.addEventListener("click", e => {
