@@ -414,18 +414,18 @@
         }
         body.performance #pet{display:none;}
         /* 🎁 icon */
-        #giftBox{
+        .gift-box{
         position:fixed;
-        top:50%;
-        left:50%;
-        transform:translate(-50%,-50%);
-        font-size:50px;
+        bottom:130px;   /* cao hơn QR (QR đang bottom:20px) */
+        left:20px;      /* sát lề trái giống QR */
+        font-size:40px;
         cursor:pointer;
-        z-index:999;
+        z-index:1000;
         transition:0.3s;
         }
-        #giftBox:hover{
-        transform:translate(-50%,-50%) scale(1.2) rotate(10deg);
+
+        .gift-box:hover{
+        transform:scale(1.2) rotate(5deg);
         }
 
         /* popup chung */
