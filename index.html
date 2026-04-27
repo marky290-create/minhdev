@@ -413,10 +413,97 @@
         transition:0.2s linear;
         }
         body.performance #pet{display:none;}
+        /* 🎁 icon */
+        #giftBox{
+        position:fixed;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        font-size:50px;
+        cursor:pointer;
+        z-index:999;
+        transition:0.3s;
+        }
+        #giftBox:hover{
+        transform:translate(-50%,-50%) scale(1.2) rotate(10deg);
+        }
+
+        /* popup chung */
+        .gift-popup{
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.7);
+        display:none;
+        justify-content:center;
+        align-items:center;
+        z-index:2000;
+        }
+
+        /* nội dung */
+        .gift-content{
+        background:#020617;
+        border:1px solid cyan;
+        padding:25px;
+        border-radius:15px;
+        text-align:center;
+        box-shadow:0 0 20px cyan;
+        }
+
+        /* input */
+        .gift-content input{
+        padding:10px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        width:200px;
+        }
+
+        /* button */
+        .gift-content button{
+        margin-top:10px;
+        padding:8px 15px;
+        border-radius:10px;
+        border:1px solid cyan;
+        background:transparent;
+        color:cyan;
+        cursor:pointer;
+        }
     </style>
 </head>
 
 <body>
+<!-- 🎁 HỘP QUÀ -->
+<div id="giftBox" onclick="openGift()">🎁</div>
+
+<!-- 📦 POPUP CÂU HỎI -->
+<div id="giftPopup" class="gift-popup">
+  <div class="gift-content">
+    <h2>🎯 Giải phương trình</h2>
+
+    <p id="mathQuestion">x² - 5x + 6 = 0</p>
+
+    <input id="answerInput" placeholder="Nhập đáp án (vd: 2,3)">
+    <button onclick="checkAnswer()">Xác nhận</button>
+
+    <p id="giftResult"></p>
+  </div>
+</div>
+
+<!-- 💌 THƯ -->
+<div id="letterBox" class="gift-popup">
+  <div class="gift-content">
+    <h2>💌 Thư bí mật</h2>
+    <p>
+      Chúc mừng! 🎉<br>
+      Bạn đã giải đúng rồi.<br>
+      Chúc bạn học tốt và code ngày càng xịn hơn 🚀
+    </p>
+    <button onclick="closeLetter()">Đóng</button>
+  </div>
+</div>
 <!-- ===== NHẠC ===== -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
@@ -739,6 +826,27 @@ localStorage.setItem("music","on");
 document.getElementById("musicBtn").innerText="⏸ Tắt nhạc";
 }
 isPlaying=!isPlaying;
+}
+function openGift(){
+ document.getElementById("giftPopup").style.display="flex";
+}
+
+/* 👉 ĐÁP ÁN ĐÚNG */
+const correctAnswer = ["2,3","3,2"];
+
+function checkAnswer(){
+ let input = document.getElementById("answerInput").value.trim();
+
+ if(correctAnswer.includes(input)){
+   document.getElementById("giftPopup").style.display="none";
+   document.getElementById("letterBox").style.display="flex";
+ }else{
+   document.getElementById("giftResult").innerText="❌ Sai rồi thử lại!";
+ }
+}
+
+function closeLetter(){
+ document.getElementById("letterBox").style.display="none";
 }
 </script>
 </body>
