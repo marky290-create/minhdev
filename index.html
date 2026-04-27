@@ -805,6 +805,11 @@ let loadInterval = setInterval(() => {
             document.getElementById("loading").style.opacity = 0;
             setTimeout(() => {
                 document.getElementById("loading").style.display = "none";
+
+                /* 👇 hiện màn khóa sau khi load xong */
+                if(localStorage.getItem("unlocked") !== "yes"){
+                document.getElementById("lockScreen").style.display = "flex";
+                }
                 typeEffect();
             }, 500);
         }, 500);
