@@ -471,6 +471,18 @@
         color:cyan;
         cursor:pointer;
         }
+        .close-btn{
+        position:absolute;
+        top:10px;
+        right:15px;
+        font-size:18px;
+        cursor:pointer;
+        color:cyan;
+        }
+
+        .gift-content{
+        position:relative; /* QUAN TRỌNG để nút nằm đúng */
+        }
     </style>
 </head>
 
@@ -480,6 +492,7 @@
 <!-- 📦 POPUP CÂU HỎI -->
 <div id="giftPopup" class="gift-popup">
   <div class="gift-content">
+    <span class="close-btn" onclick="closeGift()">✖</span>
     <h2>🎯 Giải phương trình</h2>
 
     <p id="mathQuestion">x² - 5x + 6 = 0</p>
@@ -846,6 +859,9 @@ function checkAnswer(){
 
 function closeLetter(){
  document.getElementById("letterBox").style.display="none";
+}
+function closeGift(){
+ document.getElementById("giftPopup").style.display="none";
 }
 </script>
 </body>
